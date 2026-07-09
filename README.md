@@ -1,127 +1,113 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=rect&height=220&color=0B0B0B&text=Sabahattin%20Kalkan&fontColor=E8E8E8&fontSize=42&desc=SYSTEMS%20ARCHITECT%20%E2%80%A2%20BUILD%20USEFUL%20THINGS&descAlignY=68&descSize=16"/>
+# Sabahattin Kalkan
 
-### Building systems that connect software, AI and automation.
+### Systems Architect
 
-`AI Engineering` · `Developer Tools` · `Automation Systems` · `Open Source`
+I build systems that connect software, AI, automation and the physical world.
 
-<br>
-
-<a href="https://github.com/sabahattink?tab=followers">
-<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=Followers&color=111111" />
-</a>
-
-<a href="https://github.com/sabahattink?tab=repositories">
-<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=Stars&color=111111" />
-</a>
+**Build useful things.**
 
 </div>
 
 ---
 
-## Mission
+## About
 
-I build software that solves real engineering problems.
+I design and build production-oriented software for real engineering problems.
 
-My work combines **AI**, **automation**, **developer experience**, and **production software architecture**.
+My work sits between **software architecture**, **AI-native development**, **developer tooling**, and **automation systems**.
 
-If a workflow can be simplified, I simplify it.  
-If something can be automated, I automate it.  
-If a tool becomes useful, I open-source it.
+Sometimes the system is a SaaS product.  
+Sometimes it is a CLI tool.  
+Sometimes it connects to buildings, devices, protocols, or infrastructure.  
+But the goal is always the same:
 
-> **Build useful things.**
+> Make complex workflows simpler, faster, and more reliable.
 
 ---
 
-## Projects
+## Current Work
 
-### 🖥️ KalkanOS
+### KalkanOS
 
-An interactive operating-system-inspired portfolio experience.
+An interactive operating-system-inspired personal portfolio experience.
 
-### 🤖 Antigravity Fullstack HQ
+### Antigravity Fullstack HQ
 
-Permission-first AI engineering workspace for Claude Code and modern agent workflows.
+A permission-first AI engineering workspace for Claude Code, Antigravity, and agent-based development workflows.
 
-### 🌐 LLM Gateway
+### LLM Gateway
 
-A unified OpenAI-compatible gateway for multiple LLM providers.
+A unified OpenAI-compatible gateway for working with multiple LLM providers through one interface.
 
-### 🔬 CodeDiag
+### CodeDiag
 
-Production-ready CLI toolkit for project diagnostics and code analysis.
+A CLI toolkit for inspecting, diagnosing, and improving production codebases.
 
-### 📨 MailTest
+### MailTest
 
-Email deliverability platform built for developers and SaaS teams.
+An email deliverability platform for developers and SaaS teams.
 
 ---
 
 ## Focus
 
-```txt
-AI Engineering        ████████████████████
-Agent Systems         ██████████████████░░
-Developer Tooling     ████████████████████
-Automation Systems    ███████████████████░
-Software Architecture ████████████████████
-Open Source           ████████████████░░░░
-```
+- AI-native software
+- Agent engineering
+- Developer tools
+- Automation systems
+- SaaS architecture
+- Open source infrastructure
+- Production-grade engineering
 
 ---
 
 ## Engineering Principles
 
 - Build useful things.
-- Prefer simple systems over clever abstractions.
+- Keep systems understandable.
+- Prefer boring reliability over clever complexity.
 - Automate repetitive work.
 - Document decisions, not only code.
-- Design for maintainability.
+- Design for long-term maintenance.
 - Ship production-ready software.
 
 ---
 
 ## Technology
 
-`TypeScript` · `Rust` · `Python` · `Shell`  
-`Node.js` · `NestJS` · `PostgreSQL` · `Redis`  
-`React` · `Next.js` · `Tailwind CSS`  
-`Docker` · `Linux` · `GitHub Actions`  
-`Claude Code` · `OpenAI` · `Anthropic` · `Ollama`
+**Languages**  
+TypeScript · Rust · Python · Shell
+
+**Backend**  
+Node.js · NestJS · PostgreSQL · Prisma · Redis
+
+**Frontend**  
+React · Next.js · Tailwind CSS
+
+**Infrastructure**  
+Docker · Linux · GitHub Actions
+
+**AI**  
+Claude Code · OpenAI · Anthropic · Ollama
 
 ---
 
 ## Open Source
 
-Most of my repositories start as internal tools built for real production problems.
+Most of my open-source projects start as tools I build for real production needs.
 
-When a tool proves useful, I refine it, document it, and release it so other engineers can build on it.
+When something becomes useful, I clean it up, document it, and publish it so other engineers can build on it.
 
-Open source should be practical, maintainable, and useful years after it is published.
-
----
-
-## Now
-
-Currently building:
-
-- AI-native developer workflows
-- LLM infrastructure
-- Agent engineering systems
-- Automation tooling
-- KalkanOS
+I care about tools that stay useful after the initial hype is gone.
 
 ---
 
 <div align="center">
 
-### Build useful things.
+**Build useful things.**
 
 Everything else follows.
-
-<br>
-
-**Thanks for visiting.**
 
 </div>
