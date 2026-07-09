@@ -4,9 +4,18 @@
 
 ### Systems Architect
 
-I build systems that connect software, AI, automation and the physical world.
+Building developer tools, AI infrastructure and automation systems.
 
-**Build useful things.**
+<br>
+
+<p>
+  <a href="https://github.com/sabahattink?tab=followers">
+    <img src="https://img.shields.io/github/followers/sabahattink?style=flat-square&label=Followers&color=18181B" />
+  </a>
+  <a href="https://github.com/sabahattink?tab=repositories">
+    <img src="https://img.shields.io/github/stars/sabahattink?style=flat-square&label=Stars&color=18181B" />
+  </a>
+</p>
 
 </div>
 
@@ -14,100 +23,108 @@ I build systems that connect software, AI, automation and the physical world.
 
 ## About
 
-I design and build production-oriented software for real engineering problems.
+I build production software that sits at the intersection of **AI**, **developer experience**, and **automation systems**.
 
-My work sits between **software architecture**, **AI-native development**, **developer tooling**, and **automation systems**.
-
-Sometimes the system is a SaaS product.  
-Sometimes it is a CLI tool.  
-Sometimes it connects to buildings, devices, protocols, or infrastructure.  
-But the goal is always the same:
-
-> Make complex workflows simpler, faster, and more reliable.
+Most of my open-source projects begin as internal tools built to solve real engineering problems. Once they prove useful in production, I refine them, document them, and release them publicly.
 
 ---
 
-## Current Work
+## Featured Projects
 
-### KalkanOS
+### 🌐 LLM Gateway
 
-An interactive operating-system-inspired personal portfolio experience.
+One OpenAI-compatible API for multiple LLM providers.
 
-### Antigravity Fullstack HQ
+**Highlights**
 
-A permission-first AI engineering workspace for Claude Code, Antigravity, and agent-based development workflows.
-
-### LLM Gateway
-
-A unified OpenAI-compatible gateway for working with multiple LLM providers through one interface.
-
-### CodeDiag
-
-A CLI toolkit for inspecting, diagnosing, and improving production codebases.
-
-### MailTest
-
-An email deliverability platform for developers and SaaS teams.
+- OpenAI
+- Claude
+- Gemini
+- Groq
+- Ollama
+- Drop-in compatibility
+- Production-first architecture
 
 ---
 
-## Focus
+### 🤖 Antigravity Fullstack HQ
 
-- AI-native software
-- Agent engineering
-- Developer tools
-- Automation systems
-- SaaS architecture
-- Open source infrastructure
-- Production-grade engineering
+A permission-first engineering workspace designed for Claude Code and AI-native development workflows.
 
 ---
 
-## Engineering Principles
+### 🔬 CodeDiag
 
-- Build useful things.
-- Keep systems understandable.
-- Prefer boring reliability over clever complexity.
-- Automate repetitive work.
-- Document decisions, not only code.
-- Design for long-term maintenance.
-- Ship production-ready software.
+A production-ready CLI for analyzing, diagnosing and improving software projects.
+
+Designed to help developers understand large codebases faster.
 
 ---
 
-## Technology
+### 📨 MailTest
 
-**Languages**  
-TypeScript · Rust · Python · Shell
-
-**Backend**  
-Node.js · NestJS · PostgreSQL · Prisma · Redis
-
-**Frontend**  
-React · Next.js · Tailwind CSS
-
-**Infrastructure**  
-Docker · Linux · GitHub Actions
-
-**AI**  
-Claude Code · OpenAI · Anthropic · Ollama
+An email deliverability platform focused on DNS validation, authentication and inbox diagnostics.
 
 ---
 
-## Open Source
+## Engineering Focus
 
-Most of my open-source projects start as tools I build for real production needs.
+- AI Infrastructure
+- Agent Engineering
+- Developer Experience
+- Automation Systems
+- Systems Architecture
+- Open Source Tooling
 
-When something becomes useful, I clean it up, document it, and publish it so other engineers can build on it.
+---
 
-I care about tools that stay useful after the initial hype is gone.
+## Tech Stack
+
+**Languages**
+
+TypeScript • Rust • Python • Shell
+
+**Backend**
+
+NestJS • Node.js • PostgreSQL • Redis • Prisma
+
+**Frontend**
+
+React • Next.js • Tailwind CSS
+
+**Infrastructure**
+
+Docker • Linux • GitHub Actions
+
+**AI**
+
+Claude Code • OpenAI • Anthropic • Ollama
+
+---
+
+## Open Source Philosophy
+
+I believe good open source should solve real problems.
+
+Every repository I maintain is something I either use myself or would confidently recommend to another engineering team.
+
+My goal isn't to publish more repositories.
+
+It's to build fewer, better ones.
+
+---
+
+## Current Focus
+
+- Building AI-native developer tools
+- Improving multi-provider LLM infrastructure
+- Designing maintainable software systems
+- Contributing practical open-source software
 
 ---
 
 <div align="center">
 
-**Build useful things.**
-
-Everything else follows.
+**Building useful software that lasts.**
 
 </div>
