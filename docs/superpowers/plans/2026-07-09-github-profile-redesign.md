@@ -39,9 +39,11 @@ pnpm init
 - [ ] **Step 2: Install dependencies**
 
 ```bash
-pnpm add satori @fontsource/inter @fontsource/jetbrains-mono
+pnpm add satori @fontsource/inter@5.2.8 @fontsource/jetbrains-mono@5.2.8
 pnpm add -D typescript tsx vitest @types/node
 ```
+
+Versions are pinned deliberately — the "Verified technical facts" above (WOFF file paths/availability) were confirmed against exactly these versions. An unpinned install could later resolve a version with a different `files/` layout; pinning removes that risk entirely.
 
 - [ ] **Step 3: Write tsconfig.json**
 
@@ -89,15 +91,12 @@ export default defineConfig({
 
 - [ ] **Step 6: Extend .gitignore**
 
-Append to the existing `.gitignore` (which currently only has `.superpowers/`):
+Append to the existing `.gitignore` (which currently only has `.superpowers/`) — exactly these two lines. Do **not** add `assets/stats-cache.json`: it must stay committed, since it's the fallback source of truth when the GitHub API is unreachable (spec's "repository-local, deterministic" requirement depends on it being in version control).
 
 ```
 node_modules/
 dist/
-assets/stats-cache.json
 ```
-
-Wait — `stats-cache.json` should actually be **committed** (it's the fallback source of truth when the API is unreachable, per spec's "repository-local, deterministic" requirement). Do NOT gitignore it. Only gitignore `node_modules/` and `dist/`.
 
 - [ ] **Step 7: Commit**
 
@@ -207,15 +206,18 @@ export const spacing = {
   statStripHeight: 60,
 };
 
-export const type = {
-  kicker: { fontSize: 12, fontWeight: 600 as const, letterSpacing: "3px" },
-  display: { fontSize: 60, fontWeight: 600 as const, letterSpacing: "-1.5px" },
-  body: { fontSize: 15, fontWeight: 400 as const },
-  label: { fontSize: 10, fontWeight: 400 as const, letterSpacing: "2px" },
-  value: { fontSize: 14, fontWeight: 400 as const },
-  meta: { fontSize: 11, fontWeight: 400 as const, letterSpacing: "2px" },
+export const typeScale = {
+  kicker: { fontSize: "12px", fontWeight: 600 as const, letterSpacing: "3px" },
+  display: { fontSize: "60px", fontWeight: 600 as const, letterSpacing: "-1.5px" },
+  body: { fontSize: "15px", fontWeight: 400 as const },
+  label: { fontSize: "10px", fontWeight: 400 as const, letterSpacing: "2px" },
+  value: { fontSize: "14px", fontWeight: 400 as const },
+  meta: { fontSize: "11px", fontWeight: 400 as const, letterSpacing: "2px" },
+  statValue: { fontSize: "16px", fontWeight: 600 as const },
 };
 ```
+
+**Every component in Tasks 5–7 must import and spread from `typeScale` rather than hardcoding font size/weight/letter-spacing inline** — `typeScale` is the single source of truth for the type scale per spec §6, not decoration. `fontFamily` stays a per-call string (`"Inter"` vs `"JetBrains Mono"`), since that choice is about sans-vs-mono role (documented separately in spec §5.3), not part of the size/weight scale.
 
 - [ ] **Step 4: Write contrast.ts**
 
@@ -685,7 +687,7 @@ Expected: FAIL — `./hero` doesn't exist.
 
 ```ts
 import { h, type SatoriNode } from "../satori-h";
-import { colors, spacing, type Mode, type ColorTokens } from "../tokens";
+import { colors, spacing, typeScale, type Mode, type ColorTokens } from "../tokens";
 
 export interface HeroData {
   name: string;
@@ -703,21 +705,12 @@ function SpecField(c: ColorTokens, label: string, value: string): SatoriNode {
     { style: { display: "flex", flexDirection: "column" } },
     h(
       "span",
-      {
-        style: {
-          fontFamily: "JetBrains Mono",
-          fontSize: "10px",
-          color: c.neutralMid,
-          letterSpacing: "2px",
-        },
-      },
+      { style: { ...typeScale.label, fontFamily: "JetBrains Mono", color: c.neutralMid } },
       label
     ),
     h(
       "span",
-      {
-        style: { fontFamily: "Inter", fontSize: "14px", color: c.neutralHigh, marginTop: "4px" },
-      },
+      { style: { ...typeScale.value, fontFamily: "Inter", color: c.neutralHigh, marginTop: "4px" } },
       value
     )
   );
@@ -746,9 +739,8 @@ export function Hero(mode: Mode, data: HeroData): SatoriNode {
           justifyContent: "space-between",
           padding: `28px ${marginX}px 0 ${marginX}px`,
           fontFamily: "JetBrains Mono",
-          fontSize: "11px",
           color: c.neutralMid,
-          letterSpacing: "2px",
+          ...typeScale.meta,
         },
       },
       h("span", {}, "ENGINEERING PROFILE"),
@@ -765,34 +757,17 @@ export function Hero(mode: Mode, data: HeroData): SatoriNode {
         { style: { display: "flex", flexDirection: "column", width: "716px" } },
         h(
           "span",
-          {
-            style: {
-              fontFamily: "Inter",
-              fontSize: "12px",
-              fontWeight: 600,
-              color: c.accent,
-              letterSpacing: "3px",
-            },
-          },
+          { style: { ...typeScale.kicker, fontFamily: "Inter", color: c.accent } },
           data.kicker
         ),
         h(
           "span",
-          {
-            style: {
-              fontFamily: "Inter",
-              fontSize: "60px",
-              fontWeight: 600,
-              color: c.neutralHigh,
-              letterSpacing: "-1.5px",
-              marginTop: "8px",
-            },
-          },
+          { style: { ...typeScale.display, fontFamily: "Inter", color: c.neutralHigh, marginTop: "8px" } },
           data.name
         ),
         h(
           "span",
-          { style: { fontFamily: "Inter", fontSize: "15px", color: c.neutralMid, marginTop: "14px" } },
+          { style: { ...typeScale.body, fontFamily: "Inter", color: c.neutralMid, marginTop: "14px" } },
           data.missionLine
         )
       ),
@@ -873,7 +848,7 @@ Expected: FAIL — `./section-divider` doesn't exist.
 
 ```ts
 import { h, type SatoriNode } from "../satori-h";
-import { colors, spacing, type Mode } from "../tokens";
+import { colors, spacing, typeScale, type Mode } from "../tokens";
 
 export function SectionDivider(mode: Mode, label: string): SatoriNode {
   const c = colors[mode];
@@ -894,15 +869,7 @@ export function SectionDivider(mode: Mode, label: string): SatoriNode {
     h("div", { style: { flex: 1, height: "1px", backgroundColor: c.hairline } }),
     h(
       "span",
-      {
-        style: {
-          fontFamily: "JetBrains Mono",
-          fontSize: "11px",
-          color: c.neutralMid,
-          letterSpacing: "2px",
-          margin: "0 16px",
-        },
-      },
+      { style: { ...typeScale.meta, fontFamily: "JetBrains Mono", color: c.neutralMid, margin: "0 16px" } },
       label
     ),
     h("div", { style: { flex: 1, height: "1px", backgroundColor: c.hairline } })
@@ -933,7 +900,7 @@ git commit -m "feat: implement SectionDivider component"
 - Create: `src/components/stat-strip.ts`
 - Test: `src/components/stat-strip.test.ts`
 
-Per spec §2: a thin, quiet row directly beneath Hero, carrying *live* numbers (Hero's own spec rail is static identity metadata). Per the user's final approval, exact final sizing is confirmed during implementation once Hero is viewed at real size — this task ships a working, tested component at a reasonable default (1200×60); Task 11 includes a visual check against the rendered Hero and a size adjustment if needed.
+Per spec §2: a thin, quiet row directly beneath Hero, carrying *live* numbers (Hero's own spec rail is static identity metadata), using "the same hairline-rule language as Hero" — i.e. it must have its own top and bottom hairline, not just a bare flex row. Final exact sizing was deliberately left open during brainstorming (confirmed in the conversation that produced the spec, not the spec document's section text itself) until Hero could be viewed at real size — this task ships a working, tested, correctly-framed component at a reasonable default (1200×60); Task 11 includes a visual check against the rendered Hero and a size adjustment if needed.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -973,30 +940,28 @@ Expected: FAIL — `./stat-strip` doesn't exist.
 
 ```ts
 import { h, type SatoriNode } from "../satori-h";
-import { colors, spacing, type Mode } from "../tokens";
+import { colors, spacing, typeScale, type Mode, type ColorTokens } from "../tokens";
 import type { GithubStats } from "../github-data";
 
-function Stat(c: ReturnType<typeof colorsFor>, label: string, value: number): SatoriNode {
+function Stat(c: ColorTokens, label: string, value: number): SatoriNode {
   return h(
     "div",
     { style: { display: "flex", alignItems: "baseline", gap: "8px" } },
     h(
       "span",
-      { style: { fontFamily: "Inter", fontSize: "16px", fontWeight: 600, color: c.neutralHigh } },
+      { style: { ...typeScale.statValue, fontFamily: "Inter", color: c.neutralHigh } },
       String(value)
     ),
     h(
       "span",
-      { style: { fontFamily: "JetBrains Mono", fontSize: "11px", color: c.neutralMid, letterSpacing: "1px" } },
+      { style: { ...typeScale.meta, fontFamily: "JetBrains Mono", color: c.neutralMid, letterSpacing: "1px" } },
       label
     )
   );
 }
 
-function colorsFor(mode: Mode) {
-  return colors[mode];
-}
-
+// Mirrors Hero's hairline-rule language (top/bottom hairline framing a content row) —
+// spec §2 requires the Stat Strip to share Hero's visual framing, not just sit as a bare row.
 export function StatStrip(mode: Mode, stats: GithubStats): SatoriNode {
   const c = colors[mode];
   const { heroWidth: width, marginX } = spacing;
@@ -1008,15 +973,27 @@ export function StatStrip(mode: Mode, stats: GithubStats): SatoriNode {
         width: `${width}px`,
         height: "60px",
         display: "flex",
-        alignItems: "center",
-        gap: "40px",
+        flexDirection: "column",
+        justifyContent: "center",
         backgroundColor: c.bg,
-        padding: `0 ${marginX}px`,
       },
     },
-    Stat(c, "FOLLOWERS", stats.followers),
-    Stat(c, "PUBLIC REPOS", stats.publicRepos),
-    Stat(c, "STARS", stats.totalStars)
+    h("div", { style: { margin: `0 ${marginX}px`, height: "1px", backgroundColor: c.hairline } }),
+    h(
+      "div",
+      {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: "40px",
+          padding: `12px ${marginX}px`,
+        },
+      },
+      Stat(c, "FOLLOWERS", stats.followers),
+      Stat(c, "PUBLIC REPOS", stats.publicRepos),
+      Stat(c, "STARS", stats.totalStars)
+    ),
+    h("div", { style: { margin: `0 ${marginX}px`, height: "1px", backgroundColor: c.hairline } })
   );
 }
 ```
