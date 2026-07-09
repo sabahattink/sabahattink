@@ -1,75 +1,131 @@
+```md
 <div align="center">
 
 # Sabahattin Kalkan
 
-**Full-Stack Engineer · Founder of [Scuton Technology](https://github.com/scuton-technology)**
+### Systems Architect
 
-Building developer tools and AI-powered products.
+Building AI-native software, developer tools and intelligent automation.
 
-[![GitHub followers](https://img.shields.io/github/followers/sabahattink?style=flat-square&color=gray&label=Followers)](https://github.com/sabahattink?tab=followers)
-[![Stars](https://img.shields.io/github/stars/sabahattink?style=flat-square&color=gold&label=Stars)](https://github.com/sabahattink?tab=repositories)
+<p>
+
+<a href="https://github.com/sabahattink?tab=followers">
+<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=FOLLOWERS"/>
+</a>
+
+<a href="https://github.com/sabahattink?tab=repositories">
+<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=STARS"/>
+</a>
+
+</p>
 
 </div>
 
 ---
 
-## What I'm Working On
+## Mission
 
-| Project | Description | Stack |
-|---------|-------------|-------|
-| [**antigravity-fullstack-hq**](https://github.com/sabahattink/antigravity-fullstack-hq) | Permission-first CLAUDE.md + agent stack for Claude Code & Antigravity | `Shell` |
-| [**llm-gateway**](https://github.com/scuton-technology/llm-gateway) | One OpenAI-compatible API for OpenAI, Claude, Gemini, Groq, Ollama | `TypeScript` |
-| [**scuton-technology**](https://github.com/scuton-technology) | Developer tooling organization — CLI tools, AI utilities, open source | `Various` |
+I build software that solves real engineering problems.
 
----
+My work sits at the intersection of **AI**, **developer tooling**, **automation** and **software architecture**.
 
-## Tech Stack
+Everything I publish is designed with one goal in mind:
 
-**Languages**
-
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![Shell](https://img.shields.io/badge/Shell-4EAA25?style=flat-square&logo=gnubash&logoColor=white)
-
-**Frontend**
-
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
-
-**Backend**
-
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
-
-**Tools**
-
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![Claude Code](https://img.shields.io/badge/Claude_Code-CC785C?style=flat-square&logo=anthropic&logoColor=white)
+> **Build useful things.**
 
 ---
 
-## GitHub Stats
+## Current Focus
+
+- AI Engineering
+- Agent Systems
+- Developer Experience
+- Automation Platforms
+- Open Source Software
+- Production Architecture
+
+---
+
+## Featured Projects
+
+| Project | Description |
+|----------|-------------|
+| **KalkanOS** | A cinematic operating-system-inspired portfolio experience. |
+| **Antigravity Fullstack HQ** | Permission-first engineering workspace for Claude Code. |
+| **LLM Gateway** | One OpenAI-compatible API for multiple LLM providers. |
+| **CodeDiag** | CLI toolkit for analyzing and improving production codebases. |
+| **MailTest** | Email deliverability platform for developers and SaaS teams. |
+
+---
+
+## Engineering Principles
+
+- Build useful things.
+- Prefer simplicity over complexity.
+- Automate repetitive work.
+- Document everything.
+- Design systems, not features.
+- Optimize for long-term maintainability.
+
+---
+
+## Tech
+
+### Languages
+
+TypeScript • Rust • Python • Shell
+
+### Backend
+
+Node.js • NestJS • PostgreSQL • Prisma • Redis
+
+### Frontend
+
+React • Next.js • Tailwind CSS
+
+### Infrastructure
+
+Docker • Linux • GitHub Actions
+
+### AI
+
+Claude Code • OpenAI • Anthropic • Ollama
+
+---
+
+## Open Source
+
+Most of my projects begin as tools I build for myself while solving real production problems.
+
+If they prove useful, I refine them, document them and release them as open source so others can benefit as well.
+
+I believe open source should be practical, maintainable and built to last.
+
+---
+
+## Currently Building
+
+- 🤖 AI Agent Workflows
+- 🧠 LLM Infrastructure
+- 🛠 Developer Tools
+- ⚙️ Automation Systems
+- 🚀 KalkanOS
+
+---
+
+## Connect
+
+- 🌐 Portfolio *(coming soon)*
+- 💼 LinkedIn *(coming soon)*
+- 🐦 X *(coming soon)*
+
+---
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=sabahattink&show_icons=true&theme=dark&hide_border=true&count_private=true&hide=contribs)
-&nbsp;
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=sabahattink&layout=compact&theme=dark&hide_border=true)
+### Build useful things.
+
+Everything else follows.
 
 </div>
-
----
-
-<div align="center">
-
-*Building in public · Open to collaboration*
-
-[![Scuton Technology](https://img.shields.io/badge/Scuton_Technology-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/scuton-technology)
-
-</div>
+```
