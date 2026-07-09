@@ -1476,7 +1476,7 @@ start assets/stat-strip-dark.svg
 (On Windows, `start <file>` opens it in the default viewer/browser.) Compare against the approved `hero-b-refined.html` mockup (`.superpowers/brainstorm/250-1783593244/hero-b-refined.html`, "spec-header" option) and the `tools-appendix-v2.html` mockup for overall visual register. Confirm:
 - Hero reads correctly at 1200×300 — asymmetric two-column layout, hairlines top/bottom, spec rail values legible
 - Text doesn't overflow its column (particularly the mission line in the left column and the three spec-rail values in the right column)
-- Now that Hero is visible at real size, finalize `StatStrip`'s exact proportions (per spec §2/§8, this was deliberately deferred) — adjust `src/components/stat-strip.ts` height/padding/gap if it looks disproportionate next to the 300px-tall Hero immediately above it. If changed, re-run `pnpm test` and `pnpm run generate` to confirm the change holds.
+- Now that Hero is visible at real size, finalize `StatStrip`'s exact proportions (deliberately deferred during brainstorming, per Task 7's note) — adjust `src/components/stat-strip.ts` height/padding/gap if it looks disproportionate next to the 300px-tall Hero immediately above it. If changed, re-run `pnpm test` and `pnpm run generate` to confirm the change holds.
 
 - [ ] **Step 5: Verify dark/light `<picture>` switching actually renders correctly**
 
