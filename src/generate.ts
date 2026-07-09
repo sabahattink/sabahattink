@@ -9,10 +9,11 @@ import { SectionDivider } from "./components/section-divider.js";
 import { StatStrip } from "./components/stat-strip.js";
 import { spacing } from "./tokens.js";
 
-const OUT_DIR = path.join(process.cwd(), "assets");
+const DEFAULT_OUT_DIR = path.join(process.cwd(), "assets");
 
 interface GenerateOptions {
   fetchStats?: () => Promise<GithubStats>;
+  outDir?: string;
 }
 
 const HERO_DATA = {
@@ -30,7 +31,8 @@ function todayRev(): string {
 }
 
 export async function generate(options: GenerateOptions = {}): Promise<void> {
-  await mkdir(OUT_DIR, { recursive: true });
+  const outDir = options.outDir ?? DEFAULT_OUT_DIR;
+  await mkdir(outDir, { recursive: true });
 
   const fonts = await loadFonts();
   const stats = options.fetchStats ? await options.fetchStats() : await fetchGithubStats();
@@ -73,10 +75,18 @@ export async function generate(options: GenerateOptions = {}): Promise<void> {
     },
   ];
 
-  for (const job of jobs) {
-    const svg = await job.svg();
-    await writeFile(path.join(OUT_DIR, job.file), svg);
-  }
+  // Render every SVG into memory first, and only write to disk once every
+  // render has succeeded. This keeps the write phase all-or-nothing: if any
+  // satori() call throws (e.g. job 4 of 6), assets/ is left completely
+  // untouched rather than ending up with a mix of freshly-written and stale
+  // files with only a thrown error as a signal something is inconsistent.
+  const rendered = await Promise.all(
+    jobs.map(async (job) => ({ file: job.file, svg: await job.svg() }))
+  );
+
+  await Promise.all(
+    rendered.map(({ file, svg }) => writeFile(path.join(outDir, file), svg))
+  );
 }
 
 // Allow running directly: `tsx src/generate.ts`
