@@ -1,6 +1,7 @@
 import satori from "satori";
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { loadFonts } from "./fonts.js";
 import { fetchGithubStats, type GithubStats } from "./github-data.js";
 import { Hero } from "./components/hero.js";
@@ -79,7 +80,12 @@ export async function generate(options: GenerateOptions = {}): Promise<void> {
 }
 
 // Allow running directly: `tsx src/generate.ts`
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Compared via pathToFileURL (not a raw `file://` template) because on Windows
+// process.argv[1] is a backslash path (`C:\...`) while import.meta.url is always
+// a normalized forward-slash, triple-slash URL (`file:///C:/...`) — a naive
+// string-concat comparison never matches on this platform, silently turning
+// `tsx src/generate.ts` into a no-op.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   generate()
     .then(() => console.log("Generated all assets."))
     .catch((err) => {
