@@ -13,15 +13,16 @@ Redesign the GitHub profile README as a single, coherent engineering-document ex
 Final section order (locked):
 
 1. **Hero** — SVG, name + role + spec rail
-2. **Mission** — *Why do I build software?* (2–3 sentences)
-3. **Selected Projects** — markdown, 6 projects
-4. **Engineering Principles** — *What do I believe?* (short bullet list)
-5. **Engineering Utilities** — evidence that the principles above are applied in practice (real markdown table)
-6. **How I Build Software** — *How do I work?* (process narrative: internal tool → proven in production → documented → released)
-7. **Tech Stack** — supporting reference, deliberately placed late ("technologies support the story rather than define it")
-8. **Current Focus** — short list, carried from existing README's "Current Interests"
-9. **Open Source** — philosophy paragraph, largely reused from the current README (already strong, reviewed positively)
-10. **Closing** — a strong closing statement. **No traditional Contact section.** GitHub already surfaces profile links (followers, socials via GitHub's own profile chrome); the README does not duplicate them.
+2. **Stat Strip** — SVG, thin standalone row directly beneath Hero (not inside the Hero composition itself, which stays exactly as prototyped). Carries the *dynamic* data (live follower count, public repo count, aggregate stars) that the Hero's own spec rail deliberately does not — the rail is static identity metadata (FOCUS/STACK/BASED), the strip is live numbers. Kept visually quiet: same hairline-rule language as Hero, no accent color, single row.
+3. **Mission** — *Why do I build software?* (2–3 sentences)
+4. **Selected Projects** — markdown, 6 projects
+5. **Engineering Principles** — *What do I believe?* (short bullet list)
+6. **Engineering Utilities** — evidence that the principles above are applied in practice (real markdown table)
+7. **How I Build Software** — *How do I work?* (process narrative: internal tool → proven in production → documented → released)
+8. **Tech Stack** — supporting reference, deliberately placed late ("technologies support the story rather than define it")
+9. **Current Focus** — short list, carried from existing README's "Current Interests"
+10. **Open Source** — philosophy paragraph, largely reused from the current README (already strong, reviewed positively)
+11. **Closing** — a strong closing statement. **No traditional Contact section.** GitHub already surfaces profile links (followers, socials via GitHub's own profile chrome); the README does not duplicate them.
 
 ### Section differentiation rule (hard constraint)
 
@@ -105,7 +106,8 @@ Exact coordinates prototyped at 1200×300 viewBox in the mockup; carry those pro
 
 - **Sans (display/body within SVG):** Inter — closest match to the system-ui look already approved, OFL-licensed
 - **Monospace (spec-rail labels, metadata):** JetBrains Mono — OFL-licensed
-- **Licensing requirement:** if font files are committed to the repo (e.g. under `assets/fonts/`), their OFL license files must be committed alongside them, and font usage (which weights, where used, license type) must be documented in the repo — e.g. a short `assets/fonts/README.md` or a section in the main build docs. This is a hard requirement, not optional.
+- **Sourcing decision:** fonts are pulled at build time from the `@fontsource/inter` and `@fontsource/jetbrains-mono` npm packages (both bundle their own OFL license text), read as buffers by `scripts/generate.ts` — not committed as raw font files in the repo. This keeps the repo free of binary font blobs while still satisfying the licensing requirement, since the license text ships with the package.
+- **Licensing requirement:** regardless of sourcing method, font usage must be documented in the repo — which fonts, which weights, where each is used (display vs. metadata), and license type/source (OFL, via `@fontsource`). A short note in `scripts/generate.ts`'s header comment or a `docs/FONTS.md` satisfies this. This is a hard requirement, not optional. If a future change moves to committing raw font files instead of the npm packages, their OFL license files must be committed alongside them at that point.
 - Markdown body text (everything outside the SVGs) uses GitHub's own rendering font — cannot be overridden, and this spec does not attempt to.
 
 ### 5.4 Content/visual split (resolves an internal tension from brainstorming)
@@ -122,7 +124,8 @@ Consistency across the two comes from sharing the same design tokens (color, spa
 Full system, chosen over a hand-crafted one-off and over an external live-render endpoint. Repo-local and deterministic — no runtime external service. Rationale: aligns with "prefer battle-tested libraries over hand-rolled solutions," gives flexbox layout instead of manual coordinate math, and matches the "reusable README design system" framing from brainstorming (not a one-off asset drop).
 
 - **`tokens.ts`** — single source of truth for color, spacing, and type scale (both dark and light variants)
-- **`components/`** — composable functions returning Satori-compatible element trees: `Hero()`, `SectionDivider()`, `StatStrip()`. Designed so a future component (e.g. a timeline block) can be added without touching existing ones.
+- **`components/`** — composable functions returning Satori-compatible element trees: `Hero()`, `StatStrip()`, `SectionDivider()`. Designed so a future component (e.g. a timeline block) can be added without touching existing ones.
+  - `SectionDivider()` is used exactly once: between **How I Build Software** and **Tech Stack** — the one deliberate structural pivot in the page (end of the Why→What→Evidence→How argument, start of supporting reference material). Every other section boundary uses a plain markdown `---`; not every transition needs a rendered asset.
 - **`scripts/generate.ts`** — fetches live GitHub API data (follower count, public repo count, aggregate stars), combines with tokens + components, renders through Satori, writes SVGs to `/assets/*.svg` (separate dark/light variants)
 - **Fonts:** Inter + JetBrains Mono loaded as buffers for Satori (see §5.3)
 - **GitHub Action:** triggered on a daily cron and on push to `main`; runs the generator; commits changed SVGs back to the repo only if the diff is non-empty
