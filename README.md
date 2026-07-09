@@ -7,125 +7,162 @@
 
 Building AI-native software, developer tools and intelligent automation.
 
-<p>
+<br>
+
+> **Build useful things.**
+
+<br>
 
 <a href="https://github.com/sabahattink?tab=followers">
-<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=FOLLOWERS"/>
+<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=Followers"/>
 </a>
 
-<a href="https://github.com/sabahattink?tab=repositories">
-<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=STARS"/>
+<a href="https://img.shields.io">
+<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=Repository%20Stars"/>
 </a>
-
-</p>
 
 </div>
 
 ---
 
-## Mission
+# About
 
 I build software that solves real engineering problems.
 
-My work sits at the intersection of **AI**, **developer tooling**, **automation** and **software architecture**.
+My work combines software architecture, AI, automation and developer experience to create tools that developers actually enjoy using.
 
-Everything I publish is designed with one goal in mind:
-
-> **Build useful things.**
+Most of the projects here started as tools I built for myself while solving production problems. Once they proved useful, I refined them, documented them and released them as open source.
 
 ---
 
-## Current Focus
+# Current Focus
 
 - AI Engineering
 - Agent Systems
 - Developer Experience
+- Developer Tooling
 - Automation Platforms
-- Open Source Software
-- Production Architecture
+- Production Software
+- Open Source
 
 ---
 
-## Featured Projects
+# Featured Projects
 
 | Project | Description |
-|----------|-------------|
-| **KalkanOS** | A cinematic operating-system-inspired portfolio experience. |
-| **Antigravity Fullstack HQ** | Permission-first engineering workspace for Claude Code. |
-| **LLM Gateway** | One OpenAI-compatible API for multiple LLM providers. |
-| **CodeDiag** | CLI toolkit for analyzing and improving production codebases. |
-| **MailTest** | Email deliverability platform for developers and SaaS teams. |
+|---------|-------------|
+| **KalkanOS** | A cinematic operating-system-inspired portfolio experience built with modern web technologies. |
+| **Antigravity Fullstack HQ** | Permission-first AI engineering workspace for Claude Code. |
+| **LLM Gateway** | One OpenAI-compatible API supporting multiple LLM providers. |
+| **CodeDiag** | CLI toolkit for analyzing, inspecting and improving production codebases. |
+| **MailTest** | Email deliverability platform built for developers and SaaS teams. |
 
 ---
 
-## Engineering Principles
+# Engineering Philosophy
 
-- Build useful things.
-- Prefer simplicity over complexity.
-- Automate repetitive work.
-- Document everything.
-- Design systems, not features.
-- Optimize for long-term maintainability.
+I believe software should be:
+
+- Useful before impressive
+- Simple before clever
+- Automated before manual
+- Designed for long-term maintenance
+- Well documented
+- Production ready
+
+I prefer building systems over building features.
 
 ---
 
-## Tech
+# Technology
 
 ### Languages
 
-TypeScript • Rust • Python • Shell
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Shell](https://img.shields.io/badge/Shell-4EAA25?style=flat-square&logo=gnubash&logoColor=white)
 
 ### Backend
 
-Node.js • NestJS • PostgreSQL • Prisma • Redis
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
 
 ### Frontend
 
-React • Next.js • Tailwind CSS
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 
 ### Infrastructure
 
-Docker • Linux • GitHub Actions
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
 
 ### AI
 
-Claude Code • OpenAI • Anthropic • Ollama
+![Claude Code](https://img.shields.io/badge/Claude_Code-CC785C?style=flat-square)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat-square)
+![Anthropic](https://img.shields.io/badge/Anthropic-D97757?style=flat-square)
+![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat-square)
 
 ---
 
-## Open Source
+# Open Source
 
-Most of my projects begin as tools I build for myself while solving real production problems.
+Open source is more than publishing code.
 
-If they prove useful, I refine them, document them and release them as open source so others can benefit as well.
+It is about sharing knowledge, solving real problems and building software that other engineers can rely on.
 
-I believe open source should be practical, maintainable and built to last.
+My goal is to create projects that are:
 
----
-
-## Currently Building
-
-- 🤖 AI Agent Workflows
-- 🧠 LLM Infrastructure
-- 🛠 Developer Tools
-- ⚙️ Automation Systems
-- 🚀 KalkanOS
+- Practical
+- Well documented
+- Easy to understand
+- Easy to extend
+- Built for long-term maintenance
 
 ---
 
-## Connect
+# Currently Building
 
-- 🌐 Portfolio *(coming soon)*
-- 💼 LinkedIn *(coming soon)*
-- 🐦 X *(coming soon)*
+- AI Agent Workflows
+- LLM Infrastructure
+- Developer Tools
+- Automation Systems
+- KalkanOS
+
+---
+
+# GitHub Stats
+
+<div align="center">
+
+<img height="170" src="https://github-readme-stats.vercel.app/api?username=sabahattink&show_icons=true&hide_border=true&theme=transparent&rank_icon=github"/>
+
+<img height="170" src="https://github-readme-stats.vercel.app/api/top-langs/?username=sabahattink&layout=compact&hide_border=true&theme=transparent"/>
+
+</div>
+
+---
+
+# Philosophy
+
+> **Build useful things.**
+
+Everything else follows.
 
 ---
 
 <div align="center">
 
-### Build useful things.
+Thanks for stopping by.
 
-Everything else follows.
+If one of my projects helps you, consider giving it a ⭐
 
 </div>
 ```
