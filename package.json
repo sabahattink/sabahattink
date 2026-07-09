@@ -6,7 +6,8 @@
   "scripts": {
     "generate": "tsx src/generate.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:readme": "tsx scripts/check-readme.ts"
   },
   "keywords": [],
   "author": "",
