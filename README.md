@@ -1,126 +1,127 @@
 <div align="center">
 
-# Sabahattin Kalkan
+<img src="https://capsule-render.vercel.app/api?type=rect&height=220&color=0B0B0B&text=Sabahattin%20Kalkan&fontColor=E8E8E8&fontSize=42&desc=SYSTEMS%20ARCHITECT%20%E2%80%A2%20BUILD%20USEFUL%20THINGS&descAlignY=68&descSize=16"/>
 
-### Systems Architect
+### Building systems that connect software, AI and automation.
 
-Building AI-native software, developer tools and intelligent automation.
-
-<br>
-
-> *Build useful things.*
+`AI Engineering` · `Developer Tools` · `Automation Systems` · `Open Source`
 
 <br>
 
 <a href="https://github.com/sabahattink?tab=followers">
-<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=Followers" />
+<img src="https://img.shields.io/github/followers/sabahattink?style=for-the-badge&label=Followers&color=111111" />
 </a>
 
 <a href="https://github.com/sabahattink?tab=repositories">
-<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=Repository%20Stars" />
+<img src="https://img.shields.io/github/stars/sabahattink?style=for-the-badge&label=Stars&color=111111" />
 </a>
 
 </div>
 
 ---
 
-# About
+## Mission
 
-I build systems that connect **software**, **AI**, and **automation**.
+I build software that solves real engineering problems.
 
-My work spans developer tooling, AI infrastructure, production software, and industrial automation.
+My work combines **AI**, **automation**, **developer experience**, and **production software architecture**.
 
-Every project starts from a real engineering problem and evolves into something practical, maintainable, and useful for other developers.
-
----
-
-# What I'm Building
-
-| Project | Description |
-|---------|-------------|
-| 🖥️ **KalkanOS** | Interactive operating-system-inspired portfolio experience. |
-| 🤖 **Antigravity Fullstack HQ** | AI engineering workspace for Claude Code and modern agent development. |
-| 🌐 **LLM Gateway** | Unified OpenAI-compatible gateway supporting multiple LLM providers. |
-| 🔬 **CodeDiag** | Production-ready CLI toolkit for project diagnostics and code analysis. |
-| 📨 **MailTest** | Email deliverability platform built for developers and SaaS teams. |
-
----
-
-# Focus Areas
-
-- AI Engineering
-- Agent Systems
-- Developer Experience
-- Developer Tooling
-- Automation Systems
-- Software Architecture
-- Open Source
-
----
-
-# Engineering Philosophy
-
-I believe great software should be:
-
-- Useful before impressive
-- Simple before clever
-- Automated before manual
-- Built to last
-- Easy to maintain
-- Well documented
-
-I prefer building **systems** over building **features**.
-
----
-
-# Technologies
-
-### Languages
-
-`TypeScript` · `Rust` · `Python` · `Shell`
-
-### Backend
-
-`Node.js` · `NestJS` · `PostgreSQL` · `Prisma` · `Redis`
-
-### Frontend
-
-`React` · `Next.js` · `Tailwind CSS`
-
-### Infrastructure
-
-`Docker` · `Linux` · `GitHub Actions`
-
-### AI
-
-`Claude Code` · `OpenAI` · `Anthropic` · `Ollama`
-
----
-
-# Open Source
-
-Most of my repositories begin as internal tools built for production use.
-
-If a tool proves valuable, I improve it, document it, and release it as open source so other engineers can build on it.
-
-I care about software that remains useful years after it is published.
-
----
-
-# Current Mission
-
-Create software that saves engineers time.
-
-Whether through AI, automation, or developer tooling, my goal is always the same:
+If a workflow can be simplified, I simplify it.  
+If something can be automated, I automate it.  
+If a tool becomes useful, I open-source it.
 
 > **Build useful things.**
 
 ---
 
+## Projects
+
+### 🖥️ KalkanOS
+
+An interactive operating-system-inspired portfolio experience.
+
+### 🤖 Antigravity Fullstack HQ
+
+Permission-first AI engineering workspace for Claude Code and modern agent workflows.
+
+### 🌐 LLM Gateway
+
+A unified OpenAI-compatible gateway for multiple LLM providers.
+
+### 🔬 CodeDiag
+
+Production-ready CLI toolkit for project diagnostics and code analysis.
+
+### 📨 MailTest
+
+Email deliverability platform built for developers and SaaS teams.
+
+---
+
+## Focus
+
+```txt
+AI Engineering        ████████████████████
+Agent Systems         ██████████████████░░
+Developer Tooling     ████████████████████
+Automation Systems    ███████████████████░
+Software Architecture ████████████████████
+Open Source           ████████████████░░░░
+```
+
+---
+
+## Engineering Principles
+
+- Build useful things.
+- Prefer simple systems over clever abstractions.
+- Automate repetitive work.
+- Document decisions, not only code.
+- Design for maintainability.
+- Ship production-ready software.
+
+---
+
+## Technology
+
+`TypeScript` · `Rust` · `Python` · `Shell`  
+`Node.js` · `NestJS` · `PostgreSQL` · `Redis`  
+`React` · `Next.js` · `Tailwind CSS`  
+`Docker` · `Linux` · `GitHub Actions`  
+`Claude Code` · `OpenAI` · `Anthropic` · `Ollama`
+
+---
+
+## Open Source
+
+Most of my repositories start as internal tools built for real production problems.
+
+When a tool proves useful, I refine it, document it, and release it so other engineers can build on it.
+
+Open source should be practical, maintainable, and useful years after it is published.
+
+---
+
+## Now
+
+Currently building:
+
+- AI-native developer workflows
+- LLM infrastructure
+- Agent engineering systems
+- Automation tooling
+- KalkanOS
+
+---
+
 <div align="center">
 
-### Thanks for visiting 👋
+### Build useful things.
 
-If one of my projects helps you, consider giving it a ⭐
+Everything else follows.
+
+<br>
+
+**Thanks for visiting.**
 
 </div>
