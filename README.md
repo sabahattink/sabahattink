@@ -4,16 +4,14 @@
 
 ### Systems Architect
 
-Building developer tools, AI infrastructure and automation systems.
-
-<br>
+Building production software where **AI**, **developer tooling**, and **automation** meet.
 
 <p>
   <a href="https://github.com/sabahattink?tab=followers">
     <img src="https://img.shields.io/github/followers/sabahattink?style=flat-square&label=Followers&color=18181B" />
   </a>
   <a href="https://github.com/sabahattink?tab=repositories">
-    <img src="https://img.shields.io/github/stars/sabahattink?style=flat-square&label=Stars&color=18181B" />
+    <img src="https://img.shields.io/github/stars/sabahattink?style=flat-square&label=Repository%20Stars&color=18181B" />
   </a>
 </p>
 
@@ -23,108 +21,110 @@ Building developer tools, AI infrastructure and automation systems.
 
 ## About
 
-I build production software that sits at the intersection of **AI**, **developer experience**, and **automation systems**.
+I'm a systems architect focused on building software that solves practical engineering problems.
 
-Most of my open-source projects begin as internal tools built to solve real engineering problems. Once they prove useful in production, I refine them, document them, and release them publicly.
+Most of my open-source projects begin as internal tools. Once they prove useful in production, I improve them, document them, and release them publicly.
+
+My interests are centered around software architecture, AI infrastructure, developer experience, and automation.
 
 ---
 
-## Featured Projects
+# Selected Projects
 
 ### 🌐 LLM Gateway
 
-One OpenAI-compatible API for multiple LLM providers.
+A unified OpenAI-compatible gateway for multiple language model providers.
 
-**Highlights**
+Instead of coupling applications to a single vendor, LLM Gateway provides one consistent interface across OpenAI, Anthropic, Gemini, Ollama, Groq and other providers.
 
-- OpenAI
-- Claude
-- Gemini
-- Groq
-- Ollama
-- Drop-in compatibility
-- Production-first architecture
+**Repository**
+
+https://github.com/scuton-technology/llm-gateway
 
 ---
 
 ### 🤖 Antigravity Fullstack HQ
 
-A permission-first engineering workspace designed for Claude Code and AI-native development workflows.
+An engineering workspace for AI-native software development built around Claude Code and agent workflows.
+
+Designed to make complex development environments reproducible, permission-aware and production-ready.
 
 ---
 
 ### 🔬 CodeDiag
 
-A production-ready CLI for analyzing, diagnosing and improving software projects.
+A CLI for inspecting, analyzing and improving production software projects.
 
-Designed to help developers understand large codebases faster.
+Created to help developers understand unfamiliar codebases faster and identify architectural issues before they become production problems.
 
 ---
 
 ### 📨 MailTest
 
-An email deliverability platform focused on DNS validation, authentication and inbox diagnostics.
+A developer-focused email deliverability platform.
+
+It helps diagnose authentication, DNS configuration and inbox placement issues before they affect real users.
 
 ---
 
-## Engineering Focus
+## Engineering Principles
+
+- Solve real problems before polishing ideas.
+- Build systems instead of isolated features.
+- Prefer maintainability over cleverness.
+- Automate repetitive engineering work.
+- Document decisions.
+- Ship production-ready software.
+
+---
+
+## Current Interests
 
 - AI Infrastructure
 - Agent Engineering
-- Developer Experience
-- Automation Systems
+- Developer Tooling
 - Systems Architecture
-- Open Source Tooling
+- Automation
+- Open Source
 
 ---
 
-## Tech Stack
+## Working With
 
 **Languages**
 
-TypeScript • Rust • Python • Shell
+TypeScript · Rust · Python · Shell
 
 **Backend**
 
-NestJS • Node.js • PostgreSQL • Redis • Prisma
+NestJS · Node.js · PostgreSQL · Redis · Prisma
 
 **Frontend**
 
-React • Next.js • Tailwind CSS
+React · Next.js · Tailwind CSS
 
 **Infrastructure**
 
-Docker • Linux • GitHub Actions
+Docker · Linux · GitHub Actions
 
 **AI**
 
-Claude Code • OpenAI • Anthropic • Ollama
+Claude Code · Anthropic · OpenAI · Ollama
 
 ---
 
-## Open Source Philosophy
+## Open Source
 
-I believe good open source should solve real problems.
+I believe open source should be practical.
 
-Every repository I maintain is something I either use myself or would confidently recommend to another engineering team.
+I don't publish projects to grow a portfolio. I publish software that has already solved problems in production and can be useful to other engineers.
 
-My goal isn't to publish more repositories.
-
-It's to build fewer, better ones.
-
----
-
-## Current Focus
-
-- Building AI-native developer tools
-- Improving multi-provider LLM infrastructure
-- Designing maintainable software systems
-- Contributing practical open-source software
+Quality, documentation and long-term maintenance matter more than repository count.
 
 ---
 
 <div align="center">
 
-**Building useful software that lasts.**
+### Let's build useful software.
 
 </div>
