@@ -3,6 +3,7 @@ import satori from "satori";
 import { StatStrip } from "./stat-strip.js";
 import { loadFonts } from "../fonts.js";
 import { colors, spacing } from "../tokens.js";
+import { assertSvgDimensions } from "../test-utils/svg.js";
 
 describe("StatStrip", () => {
   it("renders follower, repo, and star counts", async () => {
@@ -27,10 +28,7 @@ describe("StatStrip", () => {
     // the check SectionDivider's test performs. Asserted against the live tokens
     // (spacing.heroWidth/statStripHeight) rather than literals, so a future resize
     // doesn't require touching this test.
-    const rootMatch = svg.match(/^<svg width="(\d+(?:\.\d+)?)" height="(\d+(?:\.\d+)?)"/);
-    expect(rootMatch).not.toBeNull();
-    expect(Number(rootMatch![1])).toBe(spacing.heroWidth);
-    expect(Number(rootMatch![2])).toBe(spacing.statStripHeight);
+    assertSvgDimensions(svg, spacing.heroWidth, spacing.statStripHeight);
 
     // Regression guard for this component's whole reason for existing: it must share
     // Hero's hairline-rule language (a top and bottom hairline framing the content),

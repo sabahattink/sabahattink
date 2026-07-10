@@ -12,6 +12,8 @@
 
 I build software to make engineering work more honest — systems that do what they claim, tools that remove friction instead of adding it, and infrastructure that holds up once the demo is over.
 
+---
+
 ## Selected Projects
 
 ### LLM Gateway
@@ -45,6 +47,8 @@ A developer-focused email deliverability platform — diagnoses authentication, 
 ### KalkanOS
 
 *Coming soon.*
+
+---
 
 ## Engineering Principles
 
@@ -86,6 +90,8 @@ Most of what I ship starts as an internal tool solving a problem I actually have
 **Infrastructure:** Docker · Linux · GitHub Actions
 **AI:** Claude Code · Anthropic · OpenAI · Ollama
 
+---
+
 ## Current Focus
 
 - AI Infrastructure
@@ -95,9 +101,13 @@ Most of what I ship starts as an internal tool solving a problem I actually have
 - Automation
 - Open Source
 
+---
+
 ## Open Source
 
 I believe open source should be practical. I don't publish projects to grow a portfolio — I publish software that has already solved problems in production and can be useful to other engineers. Quality, documentation and long-term maintenance matter more than repository count.
+
+---
 
 ## Closing
 

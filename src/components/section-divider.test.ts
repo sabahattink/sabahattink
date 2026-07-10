@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { SectionDivider } from "./section-divider.js";
 import { loadFonts } from "../fonts.js";
+import { assertSvgDimensions } from "../test-utils/svg.js";
 
 describe("SectionDivider", () => {
   it("renders a labeled hairline at 1200x48", async () => {
@@ -22,9 +23,6 @@ describe("SectionDivider", () => {
     // exact total), so there's no summed-fixed-widths overflow risk to sweep for —
     // but the outer width/height are still independent literals with nothing else
     // catching a regression if `height` or `spacing.heroWidth` ever changes.
-    const rootMatch = svg.match(/^<svg width="(\d+(?:\.\d+)?)" height="(\d+(?:\.\d+)?)"/);
-    expect(rootMatch).not.toBeNull();
-    expect(Number(rootMatch![1])).toBe(1200);
-    expect(Number(rootMatch![2])).toBe(48);
+    assertSvgDimensions(svg, 1200, 48);
   });
 });

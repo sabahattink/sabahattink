@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { Hero } from "./hero.js";
 import { loadFonts } from "../fonts.js";
+import { assertSvgDimensions, getAttr } from "../test-utils/svg.js";
 
 describe("Hero", () => {
   it("renders to a valid 1200x300 SVG containing the name and spec-rail fields", async () => {
@@ -50,22 +51,12 @@ describe("Hero", () => {
     const svg = await satori(node as never, { width: 1200, height: 300, fonts, embedFont: false });
 
     // Root <svg> must declare the exact canvas size the generator asks for.
-    const rootMatch = svg.match(/^<svg width="(\d+(?:\.\d+)?)" height="(\d+(?:\.\d+)?)"/);
-    expect(rootMatch).not.toBeNull();
-    expect(Number(rootMatch![1])).toBe(1200);
-    expect(Number(rootMatch![2])).toBe(300);
+    assertSvgDimensions(svg, 1200, 300);
 
-    // Attribute extraction helper. Note the `\b` (word boundary) rather than a
-    // literal leading space: Satori always emits `x` as an element's *first*
-    // attribute (e.g. `<rect x="853" y="90" .../>`), so a captured attribute
-    // substring never has a leading space before "x=" — a `\s` anchor there
-    // silently fails to match and falls back to a default of 0 for every single
-    // element, making any x-based assertion vacuously true. `\b` matches correctly
-    // whether or not "x=" is preceded by whitespace.
-    const getAttr = (attrs: string, name: string): number => {
-      const re = new RegExp(`\\b${name}="(-?\\d+(?:\\.\\d+)?)"`);
-      return Number(attrs.match(re)?.[1] ?? 0);
-    };
+    // Thin local wrapper around the shared getAttr: this component's sweeps treat a
+    // missing attribute as 0 (so every element still yields a comparable number),
+    // which is a policy specific to this test rather than the shared extractor.
+    const attr = (attrs: string, name: string): number => Number(getAttr(attrs, name) ?? 0);
 
     // Coarse regex sweep over every <rect>/<text> element's x/y + width/height:
     // nothing should extend past the 1200x300 canvas (guards against a regression
@@ -77,10 +68,10 @@ describe("Hero", () => {
 
     while ((match = elementPattern.exec(svg)) !== null) {
       const attrs = match[2];
-      const x = getAttr(attrs, "x");
-      const y = getAttr(attrs, "y");
-      const w = getAttr(attrs, "width");
-      const h = getAttr(attrs, "height");
+      const x = attr(attrs, "x");
+      const y = attr(attrs, "y");
+      const w = attr(attrs, "width");
+      const h = attr(attrs, "height");
 
       expect(x).toBeGreaterThanOrEqual(0);
       expect(y).toBeGreaterThanOrEqual(0);
@@ -118,8 +109,8 @@ describe("Hero", () => {
 
     while ((contentMatch = contentPattern.exec(svg)) !== null) {
       const attrs = contentMatch[2];
-      const x = getAttr(attrs, "x");
-      const w = getAttr(attrs, "width");
+      const x = attr(attrs, "x");
+      const w = attr(attrs, "width");
       const isFullBleedContainerBox = x === 0 && w === 1200;
       if (isFullBleedContainerBox) continue;
 
