@@ -1,9 +1,12 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, configDefaults } from "vitest/config";
 
 export default defineConfig({
   test: {
     environment: "node",
-    // TODO: remove once src/ has test files (Task 1 adds the first one)
-    passWithNoTests: true,
+    // .worktrees/ holds nested git worktrees (see .gitignore) that contain their
+    // own copies of this same test suite — without this exclude, running tests
+    // from the main checkout double-counts every test file found in any active
+    // worktree directory.
+    exclude: [...configDefaults.exclude, "**/.worktrees/**"],
   },
 });
