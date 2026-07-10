@@ -5,12 +5,14 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stat-strip-dark.svg">
-  <img src="assets/stat-strip-light.svg" alt="GitHub stats: followers, public repos, stars">
+  <img src="assets/stat-strip-light.svg" alt="GitHub statistics">
 </picture>
 
 ## Mission
 
-I build software to make engineering work more honest — systems that do what they claim, tools that remove friction instead of adding it, and infrastructure that holds up once the demo is over.
+*The engineering decisions behind the systems below.*
+
+I build software where reliability matters more than novelty—developer tools, AI infrastructure, and systems engineers can trust long after they're shipped. Most of my work lives where software meets physical infrastructure.
 
 ---
 
@@ -18,31 +20,31 @@ I build software to make engineering work more honest — systems that do what t
 
 ### LLM Gateway
 
-A unified OpenAI-compatible gateway for multiple language model providers — one consistent interface across OpenAI, Anthropic, Gemini, Groq, Ollama and others.
+Modern AI systems shouldn't depend on a single provider. LLM Gateway keeps application code stable while models, vendors, and deployment targets change.
 
 **Repository:** https://github.com/sabahattink/llm-gateway
 
 ### CodeDiag
 
-Diagnose your code before you ship. One command, five analyzers, one score.
+Most code quality tools measure style. CodeDiag measures engineering risk before code reaches production through static analysis across architecture, security, dependencies, testing, and API health.
 
 **Repository:** https://github.com/sabahattink/codediag
 
 ### Antigravity Fullstack HQ
 
-A permission-first CLAUDE.md + agent stack for Claude Code and Google Antigravity — 10 agents, 28 skills, one-command install.
+AI coding agents are fast, but speed without discipline creates technical debt. This permission-first agent stack makes planning mandatory before execution for Claude Code and Google Antigravity.
 
 **Repository:** https://github.com/sabahattink/antigravity-fullstack-hq
 
 ### vault-os
 
-Personal knowledge management automation: a Telegram bot, a nightly agent, Whisper transcription, and Obsidian daily notes — running in production against my own daily workflow.
+Knowledge compounds only when it survives tomorrow. vault-os continuously organizes, summarizes, and prepares my daily engineering workflow using autonomous agents while keeping data local.
 
 **Repository:** https://github.com/sabahattink/vault-os
 
 ### MailTest
 
-A developer-focused email deliverability platform — diagnoses authentication, DNS configuration and inbox placement issues before they affect real users.
+Email failures rarely announce themselves—they quietly damage trust. MailTest finds authentication and deliverability problems before real users become the monitoring system.
 
 ### KalkanOS
 
@@ -52,30 +54,38 @@ A developer-focused email deliverability platform — diagnoses authentication, 
 
 ## Engineering Principles
 
-- Solve real problems before polishing ideas.
-- Build systems instead of isolated features.
-- Prefer maintainability over cleverness.
-- Automate repetitive engineering work.
-- Document decisions.
-- Ship production-ready software.
+- If I repeat something three times, the fourth time becomes automation.
+- Infrastructure should fail loudly, never silently.
+- Document decisions, not just code.
+- Every dependency becomes part of your incident response.
+- If nobody owns the operational cost, the feature isn't finished.
+- Done means it survives being on-call for it.
 
-### Engineering Utilities
+---
 
-*Smaller tools, shipped and maintained the same way.*
+## Engineering Utilities
+
+*Smaller tools, built with the same engineering standards.*
 
 | Tool | Description | Tool | Description |
 |---|---|---|---|
-| [`safe-json`](https://github.com/sabahattink/safe-json) | Safe JSON parse/stringify | [`retry-fn`](https://github.com/sabahattink/retry-fn) | Async retry, backoff |
-| [`kill-port`](https://github.com/sabahattink/kill-port) | Kill port process | [`git-whoami`](https://github.com/sabahattink/git-whoami) | Git identity check |
-| [`slug-gen`](https://github.com/sabahattink/slug-gen) | Unicode slug generator | [`ai-commit`](https://github.com/sabahattink/ai-commit) | AI commit messages |
-| [`dotenv-guard`](https://github.com/sabahattink/dotenv-guard) | Prevent env leaks | [`port-finder`](https://github.com/sabahattink/port-finder) | Find available port |
-| [`ghx`](https://github.com/sabahattink/ghx) | Missing GitHub CLI | [`ms-convert`](https://github.com/sabahattink/ms-convert) | Time ⇄ milliseconds |
-| [`cron-explain`](https://github.com/sabahattink/cron-explain) | Explain cron expressions | [`license-gen`](https://github.com/sabahattink/license-gen) | Generate LICENSE files |
-| [`json-diff-cli`](https://github.com/sabahattink/json-diff-cli) | JSON diff viewer | [`readme-forge`](https://github.com/sabahattink/readme-forge) | AI README generator |
+| [`ghx`](https://github.com/sabahattink/ghx) | GitHub CLI companion | [`dotenv-guard`](https://github.com/sabahattink/dotenv-guard) | Prevent env leaks |
+| [`ai-commit`](https://github.com/sabahattink/ai-commit) | AI commit messages | [`readme-forge`](https://github.com/sabahattink/readme-forge) | README generation |
+| [`retry-fn`](https://github.com/sabahattink/retry-fn) | Retry utilities | [`safe-json`](https://github.com/sabahattink/safe-json) | Safe JSON parsing |
+| [`git-whoami`](https://github.com/sabahattink/git-whoami) | Git identity | [`kill-port`](https://github.com/sabahattink/kill-port) | Process cleanup |
+| [`port-finder`](https://github.com/sabahattink/port-finder) | Available ports | [`cron-explain`](https://github.com/sabahattink/cron-explain) | Cron parser |
+| [`json-diff-cli`](https://github.com/sabahattink/json-diff-cli) | JSON diff | [`slug-gen`](https://github.com/sabahattink/slug-gen) | Unicode slugs |
+| [`ms-convert`](https://github.com/sabahattink/ms-convert) | Time conversion | [`license-gen`](https://github.com/sabahattink/license-gen) | License generator |
+
+---
 
 ## How I Build Software
 
-Most of what I ship starts as an internal tool solving a problem I actually have. It gets used in production, kept only if it earns its place, then documented and released once it's proven — not before.
+Most projects start as private tools solving problems I actually have.
+
+They stay private until removing them would make my own workflow worse.
+
+Only then are they documented, hardened, and released as open source.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/divider-dark.svg">
@@ -84,31 +94,34 @@ Most of what I ship starts as an internal tool solving a problem I actually have
 
 ## Tech Stack
 
-**Languages:** TypeScript · Rust · Python · Shell
-**Backend:** NestJS · Node.js · PostgreSQL · Redis · Prisma
-**Frontend:** React · Next.js · Tailwind CSS
-**Infrastructure:** Docker · Linux · GitHub Actions
-**AI:** Claude Code · Anthropic · OpenAI · Ollama
+| Layer | Technologies |
+|---|---|
+| Languages | TypeScript · Rust · Python · Shell |
+| Backend | NestJS · Node.js · PostgreSQL · Prisma · Redis |
+| Frontend | React · Next.js · Tailwind CSS |
+| Infrastructure | Docker · Linux · GitHub Actions |
+| AI | Claude Code · Anthropic · OpenAI · Ollama |
 
 ---
 
 ## Current Focus
 
-- AI Infrastructure
-- Agent Engineering
-- Developer Tooling
-- Systems Architecture
-- Automation
-- Open Source
+- Reliable AI systems
+- Local-first automation
+- Agent safety and trust boundaries
+- Developer infrastructure
+- Software that controls real-world systems
 
 ---
 
 ## Open Source
 
-I believe open source should be practical. I don't publish projects to grow a portfolio — I publish software that has already solved problems in production and can be useful to other engineers. Quality, documentation and long-term maintenance matter more than repository count.
+Most repositories here started as private solutions to real engineering problems.
+
+They become public only after removing them would make my own workflow worse than maintaining them. That keeps the focus on long-term usefulness rather than repository count, stars, or trends.
 
 ---
 
 ## Closing
 
-Software is a way of thinking made executable. I'd rather ship one system that holds up than ten demos that don't.
+Eventually, software has to speak for itself.
