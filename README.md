@@ -42,13 +42,11 @@ Knowledge compounds only when it survives tomorrow. vault-os continuously organi
 
 **Repository:** https://github.com/sabahattink/vault-os
 
-### MailTest
+### Engineering Handbook
 
-Email failures rarely announce themselves—they quietly damage trust. MailTest finds authentication and deliverability problems before real users become the monitoring system.
+Reliable repositories need a shared operating model. The Engineering Handbook records the principles, review standards, security practices, and maintenance rules used across my public work.
 
-### KalkanOS
-
-*Coming soon.*
+**Repository:** https://github.com/sabahattink/engineering-handbook
 
 ---
 
@@ -122,6 +120,12 @@ They become public only after removing them would make my own workflow worse tha
 
 ---
 
-## Closing
+## Contact
+
+- Website: https://sabahattinkalkan.com
+- Email: hello@sabahattinkalkan.com
+- GitHub: https://github.com/sabahattink
+
+---
 
 Eventually, software has to speak for itself.
