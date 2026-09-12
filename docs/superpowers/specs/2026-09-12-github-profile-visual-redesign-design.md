@@ -38,7 +38,7 @@ Replaces Inter + JetBrains Mono with the fonts already validated in brand-site v
 
 Same technical constraint as before: Satori cannot use system/browser fonts, so both are loaded as font buffers at build time from `@fontsource/space-grotesk` and `@fontsource/space-mono`, reading the `.woff` files specifically (Satori supports TTF/OTF/WOFF, not WOFF2 — `@fontsource` ships both, current `fonts.ts` already has this exact pattern for Inter/JetBrains Mono, only the package names/paths change). `docs/FONTS.md` gets updated with the new font/weight/license table (both OFL-1.1, same as today).
 
-`src/tokens.ts`'s `typeScale` entries keep their existing names (`kicker`, `display`, `body`, `label`, `value`, `meta`, `statValue`) so component code doesn't need a rename pass — only `fontSize`/`letterSpacing` values and the `fontFamily` strings used in components change.
+**Amendment (during implementation planning):** the plan below gives `typeScale` a fresh, single-purpose-per-entry set of names (`eyebrow`, `kicker`, `display`, `body`, `specLabel`, `specValue`, `tileTag`, `tileValue`, `tileCaption`, `pillLabel`) instead of keeping the old names as originally stated here. The old scheme overloaded `meta` across three unrelated uses (Hero's meta bar, StatStrip's per-stat label, and the divider's label) and `label`/`value` only ever described the Hero spec-rail — neither maps cleanly onto the new anatomy's distinct elements (a hero eyebrow, a stat-tile tag, a divider pill label are three different things that happened to share a font size before). Since every component is being rewritten anyway, one name per distinct use is clearer than preserving names that no longer describe what they're attached to. This supersedes the "keep existing names" line originally written here — flagged explicitly rather than left as a silent mismatch between this spec and the implementation plan.
 
 ## 4. Component anatomy
 
@@ -92,7 +92,7 @@ Canvas grows from 1200×60 to **1200×150** — flagged explicitly, same reasoni
 This directly implements the user's "dashboardvari" option: each tile's *shape* is identical (tag / value / caption) but the *content type* varies per tile — a count-style tag, an arrow-statement, and a location code — mirroring the visual variety of zalak-patel's own dashboard (a photo card, a number+gauge card, a table card) without adopting her vanity-metric content.
 
 **Anatomy per tile:**
-- Canvas: 1200×150, filled with `bg`; 12px top/bottom padding, so each tile is 126px tall.
+- Canvas: 1200×150, filled with `bg`. Tiles are not given a fixed height — the strip centers them vertically (`alignItems: center`) and each tile's height follows its own content (tag + value + wrapped caption + padding), which is more robust to caption-length variation than hand-computing a fixed tile height would be.
 - Tile width: `(1200 − 2×64 − 2×20) / 3 = 344px` (marginX=64 kept identical to Hero/Divider for edge alignment across all three stacked assets; 20px gap between tiles).
 - Tile card: `surface` background, 1px `hairline` border, 16px border-radius, 16px internal padding.
 - Tag: Space Mono 9px, tracked +0.1em, `neutralMid`.

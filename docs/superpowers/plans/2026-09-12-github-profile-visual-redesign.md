@@ -353,7 +353,7 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { Hero } from "./hero.js";
 import { loadFonts } from "../fonts.js";
-import { spacing } from "../tokens.js";
+import { spacing, colors } from "../tokens.js";
 import { assertSvgDimensions, getAttr } from "../test-utils/svg.js";
 
 const SAMPLE_DATA = {
@@ -403,14 +403,23 @@ describe("Hero", () => {
     const cardWidth = heroWidth - cardInset * 2;
     const cardHeight = heroHeight - cardInset * 2;
 
-    // The card's own background rect: inset by cardInset on all sides, sized
-    // cardWidth x cardHeight. This is the specific regression guard for the
-    // "rebuilt as a dashboard card" requirement — a plain re-skin without a
-    // real inset card would not produce a rect at these exact coordinates.
-    const cardRectPattern = new RegExp(
-      `<rect x="${cardInset}(?:\\.0+)?" y="${cardInset}(?:\\.0+)?" width="${cardWidth}(?:\\.0+)?" height="${cardHeight}(?:\\.0+)?"`
+    // The card's own background shape: inset by cardInset on all sides, sized
+    // cardWidth x cardHeight, painted with the mode's surface color. This is
+    // the specific regression guard for the "rebuilt as a dashboard card"
+    // requirement — a plain re-skin without a real inset card would not
+    // produce this element at these exact coordinates.
+    //
+    // Satori renders an element with both borderRadius and boxShadow as a
+    // <path> (a rounded-rect path string), not a <rect> — confirmed by
+    // rendering this exact shape standalone and inspecting the output. The
+    // element still carries its box's x/y/width/height as plain attributes
+    // even though it's a <path>, so match on the tag/attributes only, not on
+    // the `d` curve data (which is an implementation detail of how Satori
+    // draws rounded corners, not something this test should pin down).
+    const cardShapePattern = new RegExp(
+      `<path x="${cardInset}(?:\\.0+)?" y="${cardInset}(?:\\.0+)?" width="${cardWidth}(?:\\.0+)?" height="${cardHeight}(?:\\.0+)?" fill="${colors.dark.surface}"`
     );
-    expect(svg).toMatch(cardRectPattern);
+    expect(svg).toMatch(cardShapePattern);
 
     // Loose canvas-bound sweep: nothing should extend past the declared canvas,
     // regardless of how the card/panel layout evolves.
@@ -615,7 +624,7 @@ export function Hero(mode: Mode, data: HeroData): SatoriNode {
 Run: `pnpm exec vitest run src/components/hero.test.ts`
 Expected: PASS (2 tests)
 
-If the card-rect regex in Step 1 doesn't match (Satori's exact rect-emission order/rounding can differ from what's written above on paper), inspect the actual output — `console.log(svg)` temporarily inside the test, or write it to a scratch file — and adjust the regex to match what Satori actually emits. Don't loosen the test's intent (a real inset card rect at the expected coordinates); only correct the pattern.
+If the card-shape regex in Step 1 still doesn't match, double-check the mode passed to `Hero(...)` in the test matches the mode used in the pattern (`colors.dark.surface` only matches when rendering `Hero("dark", ...)` — the test above does, so this shouldn't come up, but it's the most likely cause if it does).
 
 If the two-column row (652 + 40 + 380 = 1072px content box) overflows the 1136px right edge implied by `cardPaddingX`, that's a real layout bug in the numbers above, not a test problem — re-check the arithmetic in spec §4.1.3 before changing anything.
 
@@ -654,7 +663,7 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { StatStrip, type StatTileData } from "./stat-strip.js";
 import { loadFonts } from "../fonts.js";
-import { spacing } from "../tokens.js";
+import { spacing, colors } from "../tokens.js";
 import { assertSvgDimensions } from "../test-utils/svg.js";
 
 const SAMPLE_TILES: StatTileData[] = [
@@ -697,22 +706,17 @@ describe("StatStrip", () => {
       embedFont: false,
     });
 
-    // Every tile shares the hairline border color as its stroke — count rects
-    // painted with that stroke, expect exactly 3 (one per tile card).
-    const strokeMatches = svg.match(new RegExp(`stroke="${colorsHairlineDark()}"`, "g")) ?? [];
+    // Every tile shares the hairline border color as its stroke — count
+    // matches of that stroke color, expect exactly 3 (one per tile card).
+    // `colors` is imported at the top of this file rather than required
+    // lazily: this project is "type": "module" and Vitest transforms .ts
+    // in-memory, so there is no compiled tokens.js on disk for a CJS
+    // require() to resolve — a plain top-level import is both simpler and
+    // the only approach that actually works here.
+    const strokeMatches = svg.match(new RegExp(`stroke="${colors.dark.hairline}"`, "g")) ?? [];
     expect(strokeMatches.length).toBe(3);
   });
 });
-
-// Small local helper so the test above doesn't hardcode the dark hairline hex
-// twice (once here, once implicitly via the component under test) — keeps the
-// assertion tied to the actual token rather than a copy-pasted literal.
-function colorsHairlineDark(): string {
-  // Imported lazily to keep the import list above focused on what's under test.
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { colors } = require("../tokens.js");
-  return colors.dark.hairline;
-}
 ```
 
 - [ ] **Step 2: Run the test, confirm it fails**
@@ -800,8 +804,6 @@ export function StatStrip(mode: Mode, tiles: StatTileData[]): SatoriNode {
 Run: `pnpm exec vitest run src/components/stat-strip.test.ts`
 Expected: PASS (2 tests)
 
-If the `require()` call in the test's helper doesn't work in this project's ESM/vitest setup, replace it with a normal top-level `import { colors } from "../tokens.js";` instead — the lazy-require was only there to keep the import list minimal, not a hard requirement. Prefer the plain top-level import if there's any friction; simplicity wins here.
-
 - [ ] **Step 5: Commit**
 
 ```bash
@@ -838,7 +840,7 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { SectionDivider } from "./section-divider.js";
 import { loadFonts } from "../fonts.js";
-import { spacing } from "../tokens.js";
+import { spacing, colors } from "../tokens.js";
 import { assertSvgDimensions } from "../test-utils/svg.js";
 
 describe("SectionDivider", () => {
@@ -855,6 +857,16 @@ describe("SectionDivider", () => {
     expect(svg).toContain("TECH");
     expect(svg).toContain("STACK");
     assertSvgDimensions(svg, spacing.heroWidth, spacing.dividerHeight);
+
+    // Regression guard for the actual change this task makes: the old
+    // divider rendered bare text with no pill wrapper at all, so it never
+    // painted anything in accentSoft. A spread of a removed typeScale field
+    // (e.g. the old `typeScale.meta`) is a silent no-op at runtime in JS —
+    // it does NOT throw — so the two assertions above would already pass
+    // against the pre-rewrite component and wouldn't actually catch a
+    // skipped rewrite. This is the one assertion that only passes once the
+    // pill badge is genuinely present.
+    expect(svg).toContain(colors.dark.accentSoft);
   });
 });
 ```
@@ -862,7 +874,7 @@ describe("SectionDivider", () => {
 - [ ] **Step 2: Run the test, confirm it fails**
 
 Run: `pnpm exec vitest run src/components/section-divider.test.ts`
-Expected: FAIL to compile — current `section-divider.ts` uses the removed `typeScale.meta` field, and `spacing.dividerHeight` doesn't exist until Task 3's `tokens.ts` change (already landed) is referenced correctly here — actually it does exist now (Task 3 added it); the failure here is purely the `typeScale.meta` reference.
+Expected: FAIL — specifically on the final `accentSoft` assertion. Vitest doesn't type-check, so the old component's `{...typeScale.meta}` (spreading a now-removed, `undefined` field) is a silent no-op at runtime, not a thrown error — the old bare-text divider still renders "TECH"/"STACK" at the right canvas size, so only the new `accentSoft`-pill assertion actually catches that the rewrite hasn't happened yet.
 
 - [ ] **Step 3: Rewrite `src/components/section-divider.ts`**
 
