@@ -6,9 +6,8 @@ export interface HeroData {
   kicker: string;
   missionLine: string;
   focus: string;
-  stack: string;
+  domains: string;
   based: string;
-  revDate: string;
 }
 
 function SpecField(c: ColorTokens, label: string, value: string): SatoriNode {
@@ -17,12 +16,20 @@ function SpecField(c: ColorTokens, label: string, value: string): SatoriNode {
     { style: { display: "flex", flexDirection: "column" } },
     h(
       "span",
-      { style: { ...typeScale.label, fontFamily: "JetBrains Mono", color: c.neutralMid } },
+      { style: { ...typeScale.specLabel, fontFamily: "Space Mono", color: c.neutralMid } },
       label
     ),
     h(
       "span",
-      { style: { ...typeScale.value, fontFamily: "Inter", color: c.neutralHigh, marginTop: "4px" } },
+      {
+        style: {
+          ...typeScale.specValue,
+          fontFamily: "Space Grotesk",
+          color: c.neutralHigh,
+          marginTop: "6px",
+          lineHeight: 1.35,
+        },
+      },
       value
     )
   );
@@ -30,7 +37,18 @@ function SpecField(c: ColorTokens, label: string, value: string): SatoriNode {
 
 export function Hero(mode: Mode, data: HeroData): SatoriNode {
   const c = colors[mode];
-  const { heroWidth: width, heroHeight: height, marginX } = spacing;
+  const {
+    heroWidth: width,
+    heroHeight: height,
+    cardInset,
+    cardRadius,
+    cardPaddingX,
+    cardPaddingY,
+    panelRadius,
+    panelPadding,
+  } = spacing;
+  const cardWidth = width - cardInset * 2;
+  const cardHeight = height - cardInset * 2;
 
   return h(
     "div",
@@ -48,80 +66,97 @@ export function Hero(mode: Mode, data: HeroData): SatoriNode {
       {
         style: {
           display: "flex",
-          justifyContent: "space-between",
-          padding: `28px ${marginX}px 0 ${marginX}px`,
-          fontFamily: "JetBrains Mono",
-          color: c.neutralMid,
-          ...typeScale.meta,
+          flexDirection: "column",
+          width: `${cardWidth}px`,
+          height: `${cardHeight}px`,
+          margin: `${cardInset}px`,
+          padding: `${cardPaddingY}px ${cardPaddingX}px`,
+          backgroundColor: c.surface,
+          border: `1px solid ${c.hairline}`,
+          borderRadius: `${cardRadius}px`,
+          boxShadow: mode === "dark" ? "0 2px 6px rgba(0,0,0,0.35)" : "0 2px 3px rgba(0,0,0,0.06)",
         },
       },
-      h("span", {}, "ENGINEERING PROFILE"),
-      h("span", {}, `REV ${data.revDate}`)
-    ),
-    h("div", {
-      style: {
-        display: "flex",
-        margin: `14px ${marginX}px 0 ${marginX}px`,
-        height: "1px",
-        backgroundColor: c.hairline,
-      },
-    }),
-    // Two-column row: Satori/Yoga does not shrink fixed-width flex children to fit
-    // their container, so these widths must sum exactly to the available content
-    // box or the right column silently overflows past the right margin.
-    // 716 (left) + 1 (divider) + 17 + 18 (asymmetric divider margins) + 320 (right)
-    // = 1072 = spacing.heroWidth - 2*spacing.marginX (1200 - 128).
-    // If marginX, heroWidth, or either column width changes, rebalance these four
-    // numbers so the sum still equals heroWidth - 2*marginX.
-    h(
-      "div",
-      { style: { display: "flex", flex: 1, padding: `32px ${marginX}px 0 ${marginX}px` } },
+      // Eyebrow row — replaces the old "ENGINEERING PROFILE / REV {date}" meta
+      // bar. Both sides are now stable positioning text, nothing generated
+      // per-render.
       h(
         "div",
-        { style: { display: "flex", flexDirection: "column", width: "716px" } },
+        { style: { display: "flex", justifyContent: "space-between", alignItems: "center" } },
         h(
-          "span",
-          { style: { ...typeScale.kicker, fontFamily: "Inter", color: c.accent } },
-          data.kicker
+          "div",
+          { style: { display: "flex", alignItems: "center", gap: "8px" } },
+          h("div", {
+            style: {
+              display: "flex",
+              width: "6px",
+              height: "6px",
+              borderRadius: "3px",
+              backgroundColor: c.accent,
+            },
+          }),
+          h(
+            "span",
+            { style: { ...typeScale.eyebrow, fontFamily: "Space Mono", color: c.neutralMid } },
+            "ENGINEERING PROFILE"
+          )
         ),
         h(
           "span",
-          { style: { ...typeScale.display, fontFamily: "Inter", color: c.neutralHigh, marginTop: "8px" } },
-          data.name
-        ),
-        h(
-          "span",
-          { style: { ...typeScale.body, fontFamily: "Inter", color: c.neutralMid, marginTop: "14px" } },
-          data.missionLine
+          { style: { ...typeScale.eyebrow, fontFamily: "Space Mono", color: c.neutralMid } },
+          "SYSTEMS · SOFTWARE · BUILDINGS"
         )
       ),
-      h("div", {
-        style: {
-          display: "flex",
-          width: "1px",
-          backgroundColor: c.hairline,
-          marginLeft: "17px",
-          marginRight: "18px",
-        },
-      }),
+      h("div", { style: { display: "flex", marginTop: "14px", height: "1px", backgroundColor: c.hairline } }),
+      // Two-column body
       h(
         "div",
-        { style: { display: "flex", flexDirection: "column", width: "320px", gap: "18px" } },
-        SpecField(c, "FOCUS", data.focus),
-        SpecField(c, "STACK", data.stack),
-        SpecField(c, "BASED", data.based)
+        { style: { display: "flex", flex: 1, marginTop: "24px", gap: "40px" } },
+        h(
+          "div",
+          { style: { display: "flex", flexDirection: "column", width: "652px" } },
+          h(
+            "span",
+            { style: { ...typeScale.kicker, fontFamily: "Space Mono", color: c.accent } },
+            data.kicker
+          ),
+          h(
+            "span",
+            { style: { ...typeScale.display, fontFamily: "Space Grotesk", color: c.neutralHigh, marginTop: "10px" } },
+            data.name
+          ),
+          h(
+            "span",
+            {
+              style: {
+                ...typeScale.body,
+                fontFamily: "Space Grotesk",
+                color: c.neutralMid,
+                marginTop: "14px",
+                lineHeight: 1.5,
+              },
+            },
+            data.missionLine
+          )
+        ),
+        h(
+          "div",
+          {
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              width: "380px",
+              gap: "14px",
+              backgroundColor: c.accentSoft,
+              borderRadius: `${panelRadius}px`,
+              padding: `${panelPadding}px`,
+            },
+          },
+          SpecField(c, "FOCUS", data.focus),
+          SpecField(c, "DOMAINS", data.domains),
+          SpecField(c, "BASED", data.based)
+        )
       )
-    ),
-    h("div", {
-      style: {
-        display: "flex",
-        marginTop: "auto",
-        marginLeft: `${marginX}px`,
-        marginRight: `${marginX}px`,
-        marginBottom: "24px",
-        height: "1px",
-        backgroundColor: c.hairline,
-      },
-    })
+    )
   );
 }
