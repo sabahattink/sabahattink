@@ -70,6 +70,19 @@ describe("Hero", () => {
     );
     expect(svg).toMatch(cardShapePattern);
 
+    // Regression guard for the specific gap a code-quality review found: this
+    // test's own name promises the panel is a "distinct background" from the
+    // card, but without this assertion, silently changing the panel's
+    // backgroundColor to match the card's (c.surface instead of c.accentSoft)
+    // still passed every other assertion in this file. Anchor on width (a
+    // literal in hero.ts) + the accentSoft fill color, not exact x/y/height,
+    // since those are emergent from text layout and more brittle to pin down
+    // than the two facts that actually matter here.
+    const panelShapePattern = new RegExp(
+      `<path[^>]*width="380(?:\\.0+)?"[^>]*fill="${colors.dark.accentSoft}"`
+    );
+    expect(svg).toMatch(panelShapePattern);
+
     // Loose canvas-bound sweep: nothing should extend past the declared canvas,
     // regardless of how the card/panel layout evolves.
     const elementPattern = /<(rect|text)\s+([^>]*)\/?>/g;
