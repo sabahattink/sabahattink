@@ -25,7 +25,7 @@ const HERO_DATA = {
 
 const STAT_DATA: StatTileData[] = [
   { tag: "03", value: "CORE DISCIPLINES", caption: "Systems · Software · Buildings" },
-  { tag: "FIELD", value: "→ PRODUCTION", caption: "From physical infrastructure to deployed software" },
+  { tag: "FIELD", value: "-> PRODUCTION", caption: "From physical infrastructure to deployed software" },
   { tag: "BAKU", value: "AZ", caption: "Engineering from Azerbaijan" },
 ];
 

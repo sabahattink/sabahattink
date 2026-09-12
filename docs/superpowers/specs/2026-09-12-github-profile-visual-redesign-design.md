@@ -86,7 +86,7 @@ Canvas grows from 1200×60 to **1200×150** — flagged explicitly, same reasoni
 | Tile | Tag | Value | Caption |
 |---|---|---|---|
 | 1 | `03` | `CORE DISCIPLINES` | Systems · Software · Buildings |
-| 2 | `FIELD` | `→ PRODUCTION` | From physical infrastructure to deployed software |
+| 2 | `FIELD` | `-> PRODUCTION` | From physical infrastructure to deployed software |
 | 3 | `BAKU` | `AZ` | Engineering from Azerbaijan |
 
 This directly implements the user's "dashboardvari" option: each tile's *shape* is identical (tag / value / caption) but the *content type* varies per tile — a count-style tag, an arrow-statement, and a location code — mirroring the visual variety of zalak-patel's own dashboard (a photo card, a number+gauge card, a table card) without adopting her vanity-metric content.
