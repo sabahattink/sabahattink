@@ -49,20 +49,20 @@ Canvas grows from 1200×300 to **1200×328** (+28px) — flagged explicitly: the
 **4.1.1 Canvas & card**
 - Canvas: 1200×328, filled with `bg`.
 - Inset card: 14px margin on all sides → card box 1172×300, `surface` background, 1px `hairline` border, **22px border-radius** (reused directly from v14's `--radius: 22px`), subtle single-layer box-shadow (e.g. `0 2px 3px rgba(0,0,0,0.03)` on light, a slightly stronger equivalent on dark — matches v14's own near-invisible card shadow, not a heavy drop shadow).
-- Card internal padding: 32px left/right, 24px top/bottom.
+- Card internal padding: **50px left/right, 24px top/bottom.** The 50px figure is deliberate, not a round default: 14px canvas inset + 50px padding = 64px from the canvas edge to the first line of content — matching `marginX` exactly, so Hero's content aligns with StatStrip's and SectionDivider's content on the same left/right edges when the three assets stack in the README. (An earlier draft of this spec claimed this alignment while actually using 32px padding, which put content 18px out of alignment — corrected here.)
 
 **4.1.2 Eyebrow row (replaces the old meta bar; no more `REV {date}`)**
 - Left: a 6px accent-colored dot + `ENGINEERING PROFILE` (Space Mono 10px, tracked +0.15em, `neutralMid`).
 - Right: `SYSTEMS · SOFTWARE · BUILDINGS` (Space Mono 10px, tracked +0.15em, `neutralMid`) — a stable positioning marker, not a generated value. Nothing in the SVG is dynamic per-render anymore except the live stat data in StatStrip (§4.2), which was always meant to carry the dynamic numbers per the original spec's content/visual split.
 - 14px gap, then a full-width `hairline` rule, then 24px gap before the two-column body.
 
-**4.1.3 Two-column body** (content box: 1172 − 2×32 = 1108px wide)
-- **Left column, 680px** (kicker → name → mission, unchanged structurally from today):
+**4.1.3 Two-column body** (content box: 1172 − 2×50 = 1072px wide)
+- **Left column, 652px** (kicker → name → mission, unchanged structurally from today, narrowed from an earlier 680px draft to make the alignment fix in §4.1.1 add up):
   - Kicker: Space Mono 11px, tracked +0.1em, `accent`.
   - 10px gap. Name: Space Grotesk 600, ~52px, letter-spacing −0.03em, `neutralHigh`.
-  - 14px gap. Mission line: Space Grotesk 400, 15px, line-height 1.5, `neutralMid`, wraps within 680px.
-- 48px gap (no vertical divider line this time — the nested panel's own border in 4.1.3b already reads as a separator, a second hairline would be redundant).
-- **Right column, 380px** — nested tinted panel (the "embedded stat panel" from the approved direction):
+  - 14px gap. Mission line: Space Grotesk 400, 15px, line-height 1.5, `neutralMid`, wraps within 652px.
+- 40px gap (no vertical divider line this time — the nested panel's own border in 4.1.3b already reads as a separator, a second hairline would be redundant).
+- **Right column, 380px** (652 + 40 + 380 = 1072, confirmed) — nested tinted panel (the "embedded stat panel" from the approved direction):
   - Background `accentSoft`, 14px border-radius, 18px padding.
   - Three `SpecField` rows, 14px gap between rows:
     - **FOCUS** — label (Space Mono 9px, tracked +0.08em, `neutralMid`) + value (Space Grotesk 400, 12px, line-height 1.35, `neutralHigh`, wraps up to 2 lines). Content: *"Systems that connect software with physical infrastructure"*.
@@ -93,7 +93,9 @@ This directly implements the user's "dashboardvari" option: each tile's *shape* 
 - 8px gap. Value: Space Grotesk 600, 22px, letter-spacing −0.02em, `neutralHigh`, single line.
 - 6px gap. Caption: Space Grotesk 400, 12px, line-height 1.4, `neutralMid`, wraps up to 2 lines.
 
-**`GithubStats` usage:** the live follower/repo/star numbers this component used to render are no longer displayed here. `github-data.ts`'s fetch is out of scope to remove in this pass (§8 below) — see open question OQ-3.
+**Data plumbing:** `StatStrip`'s signature changes from `StatStrip(mode: Mode, stats: GithubStats)` to `StatStrip(mode: Mode, tiles: StatTileData[])`, where `StatTileData = { tag: string; value: string; caption: string }`. The three rows in the table above become a `STAT_DATA: StatTileData[]` constant in `generate.ts`, defined and passed the same way `HERO_DATA` is today — static content, not fetched. `generate.ts`'s `StatStrip("dark", stats)` / `StatStrip("light", stats)` call sites change to `StatStrip("dark", STAT_DATA)` / `StatStrip("light", STAT_DATA)`.
+
+**`GithubStats` usage:** the live follower/repo/star numbers this component used to render are no longer displayed anywhere. `fetchGithubStats()` becomes dead code in `generate.ts` once this change lands (no remaining caller) — `github-data.ts`'s fetch module itself is out of scope to remove in this pass (§8 below), but the now-unused call to `fetchGithubStats()`/`options.fetchStats` in `generate()` is a real dangling reference this spec must account for, not just the module file — see open question OQ-3.
 
 ### 4.3 SectionDivider — pill + hairline (unchanged approach, re-themed)
 
@@ -109,11 +111,13 @@ Confirmed as the right call in the original direction — not converted into a c
 |---|---|
 | `src/tokens.ts` | New color values (§2), add `accentSoft` field to `ColorTokens`, `HeroData`-adjacent spacing constants (card insets/radii), `statStripHeight` 60→150, `heroHeight` 300→328 |
 | `src/fonts.ts` | Swap font packages/paths (§3), update `FontConfig["name"]` union type |
+| `src/fonts.test.ts` | Currently hard-asserts `["Inter", "JetBrains Mono"]` and Inter weights 400/600 — must be updated to assert `["Space Grotesk", "Space Mono"]` and the new 400/500/600 weight set, or it fails immediately once `fonts.ts` changes |
+| `package.json` | Add `@fontsource/space-grotesk` and `@fontsource/space-mono`; remove `@fontsource/inter` and `@fontsource/jetbrains-mono` (fully replaced, not kept alongside) |
 | `docs/FONTS.md` | New font/weight/license table |
 | `src/components/hero.ts` + `hero.test.ts` | Card wrapper, new eyebrow row, nested tinted panel, `HeroData.stack`→`domains`, `revDate` removed |
-| `src/components/stat-strip.ts` + `stat-strip.test.ts` | Full content/anatomy rebuild (§4.2); `Stat()` helper signature changes from `(label, value: number)` to `(tag, value: string, caption: string)` |
+| `src/components/stat-strip.ts` + `stat-strip.test.ts` | Full content/anatomy rebuild (§4.2); `Stat()` helper signature changes from `(label, value: number)` to `(tag, value: string, caption: string)`; `StatStrip()`'s own signature changes from `(mode, stats: GithubStats)` to `(mode, tiles: StatTileData[])` |
 | `src/components/section-divider.ts` + `section-divider.test.ts` | Pill re-theme (§4.3) |
-| `src/generate.ts` | `HERO_DATA.stack`→`domains` with new copy, `todayRev()` removed, `revDate` no longer threaded through |
+| `src/generate.ts` | `HERO_DATA.stack`→`domains` with new copy; new `STAT_DATA: StatTileData[]` constant (§4.2) replacing the `fetchGithubStats()`-sourced `stats` variable at both `StatStrip(...)` call sites; `todayRev()` removed, `revDate` no longer threaded through |
 | Existing overflow-guard and contrast tests | Extended/adjusted for new dimensions, not rewritten from scratch — the sweep pattern in `hero.test.ts` already generalizes to the new card layout |
 
 **Not touched:** `README.md` prose/structure, asset filenames, GitHub Action, `scripts/check-readme.ts` (pending a quick check at implementation time that it doesn't assert anything about the old StatStrip content), dark/light `<picture>` delivery mechanism.
