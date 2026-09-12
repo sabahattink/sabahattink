@@ -2,27 +2,32 @@ import { describe, it, expect } from "vitest";
 import satori from "satori";
 import { SectionDivider } from "./section-divider.js";
 import { loadFonts } from "../fonts.js";
+import { spacing, colors } from "../tokens.js";
 import { assertSvgDimensions } from "../test-utils/svg.js";
 
 describe("SectionDivider", () => {
-  it("renders a labeled hairline at 1200x48", async () => {
+  it("renders a pill-badged label between two hairlines at the token-defined size", async () => {
     const fonts = await loadFonts();
     const node = SectionDivider("dark", "TECH STACK");
-    const svg = await satori(node as never, { width: 1200, height: 48, fonts, embedFont: false });
+    const svg = await satori(node as never, {
+      width: spacing.heroWidth,
+      height: spacing.dividerHeight,
+      fonts,
+      embedFont: false,
+    });
 
-    // Satori always segments multi-word text into one <text> element per word (plus
-    // a separate space element) for line-wrapping measurement, even with embedFont:
-    // false — same behavior Task 5 documented for "Sabahattin Kalkan". "TECH STACK"
-    // never appears as one contiguous run, so assert on each word instead.
-    expect(svg).toContain("<svg");
     expect(svg).toContain("TECH");
     expect(svg).toContain("STACK");
+    assertSvgDimensions(svg, spacing.heroWidth, spacing.dividerHeight);
 
-    // Root <svg> must declare the exact canvas size the generator asks for. Unlike
-    // Hero, both hairlines here are flex:1 (not fixed widths that must sum to an
-    // exact total), so there's no summed-fixed-widths overflow risk to sweep for —
-    // but the outer width/height are still independent literals with nothing else
-    // catching a regression if `height` or `spacing.heroWidth` ever changes.
-    assertSvgDimensions(svg, 1200, 48);
+    // Regression guard for the actual change this task makes: the old
+    // divider rendered bare text with no pill wrapper at all, so it never
+    // painted anything in accentSoft. A spread of a removed typeScale field
+    // (e.g. the old `typeScale.meta`) is a silent no-op at runtime in JS —
+    // it does NOT throw — so the two assertions above would already pass
+    // against the pre-rewrite component and wouldn't actually catch a
+    // skipped rewrite. This is the one assertion that only passes once the
+    // pill badge is genuinely present.
+    expect(svg).toContain(colors.dark.accentSoft);
   });
 });
