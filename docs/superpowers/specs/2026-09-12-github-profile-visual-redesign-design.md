@@ -1,7 +1,7 @@
 # GitHub Profile Visual Redesign — sabahattink/sabahattink
 
 **Date:** 2026-09-12
-**Status:** Direction approved by user (v14 palette + dashboard-card architecture + dual light/dark), two content corrections applied; spec drafted, pending spec-review + user sign-off before implementation planning.
+**Status:** Approved. Direction (v14 palette + dashboard-card architecture + dual light/dark), content corrections, spec review, and both open questions (OQ-1 kicker/mission copy, OQ-3 dormant-code removal) are all resolved. Proceeding to implementation planning.
 **Repo:** `H:\10_ENGINEERING\sabahattink` (github.com/sabahattink/sabahattink)
 **Supersedes:** §5 (Visual System) of `docs/superpowers/specs/2026-07-09-github-profile-design.md`. §§1–4 and §§6–8 of that spec (content structure, selected projects, production architecture, accessibility, out-of-scope) remain in force and are not touched by this document — this is a visual-system revision only.
 
@@ -69,6 +69,12 @@ Canvas grows from 1200×300 to **1200×328** (+28px) — flagged explicitly: the
     - **DOMAINS** *(renamed from `STACK` — this is the field the user corrected: conceptual domains, not a framework list)* — same label/value styling. Content: *"Building Automation · Software Architecture · Engineering Tools"*.
     - **BASED** — same styling, single line. Content: *"Baku, Azerbaijan"* (unchanged).
 
+**4.1.5 Kicker/mission copy (resolves OQ-1 from the prior draft):** visual redesign and positioning move together, not left half-updated. `HERO_DATA.kicker` and `HERO_DATA.missionLine` in `generate.ts` change to:
+- `kicker`: `"SYSTEMS · SOFTWARE · BUILDINGS"` (replaces `"SYSTEMS ARCHITECT"`)
+- `missionLine`: `"Engineering software and physical systems from architecture to deployment."` (replaces the AI-infra/dev-tooling framed line)
+
+Kept concise and positioning-oriented per explicit instruction — no framework/tool list, no additional professional claims beyond what's already stated elsewhere in the profile.
+
 **4.1.4 `HeroData` type change:** `stack: string` → `domains: string`; `revDate` field removed entirely (was only ever used for the now-deleted meta-bar right side). `generate.ts`'s `HERO_DATA` object and `todayRev()` helper both get updated/removed accordingly — `todayRev()` is dead code once nothing consumes it.
 
 ### 4.2 StatStrip — three positioning tiles (not a metrics dashboard)
@@ -117,7 +123,12 @@ Confirmed as the right call in the original direction — not converted into a c
 | `src/components/hero.ts` + `hero.test.ts` | Card wrapper, new eyebrow row, nested tinted panel, `HeroData.stack`→`domains`, `revDate` removed |
 | `src/components/stat-strip.ts` + `stat-strip.test.ts` | Full content/anatomy rebuild (§4.2); `Stat()` helper signature changes from `(label, value: number)` to `(tag, value: string, caption: string)`; `StatStrip()`'s own signature changes from `(mode, stats: GithubStats)` to `(mode, tiles: StatTileData[])` |
 | `src/components/section-divider.ts` + `section-divider.test.ts` | Pill re-theme (§4.3) |
-| `src/generate.ts` | `HERO_DATA.stack`→`domains` with new copy; new `STAT_DATA: StatTileData[]` constant (§4.2) replacing the `fetchGithubStats()`-sourced `stats` variable at both `StatStrip(...)` call sites; `todayRev()` removed, `revDate` no longer threaded through |
+| `src/generate.ts` | `HERO_DATA.stack`→`domains`, `HERO_DATA.kicker`/`missionLine` copy updated (§4.1.5); new `STAT_DATA: StatTileData[]` constant (§4.2) replacing the `fetchGithubStats()`-sourced `stats` variable at both `StatStrip(...)` call sites; `todayRev()` removed, `revDate` no longer threaded through; `fetchGithubStats` import and the `GenerateOptions.fetchStats` field removed entirely (§4.2 resolution of OQ-3) |
+| `src/github-data.ts` | **Deleted.** No remaining caller once StatStrip renders static positioning tiles instead of live stats (§4.2, OQ-3 resolved: remove cleanly, git history is sufficient if ever needed again) |
+| `src/github-data.test.ts` | **Deleted** alongside the module it tests |
+| `assets/stats-cache.json` | **Deleted** — this tracked file exists only as `fetchGithubStats()`'s offline-fallback cache; with the fetch removed, it has no reader |
+| `src/components/stat-strip.ts` | Drop `import type { GithubStats } from "../github-data.js"` (replaced by the local `StatTileData` type, §4.2) |
+| `src/generate.test.ts` | Currently passes `fetchStats: async () => ({...})` into `generate()` in both its tests — that option no longer exists, so both calls change to plain `generate({ outDir })` |
 | Existing overflow-guard and contrast tests | Extended/adjusted for new dimensions, not rewritten from scratch — the sweep pattern in `hero.test.ts` already generalizes to the new card layout |
 
 **Not touched:** `README.md` prose/structure, asset filenames, GitHub Action, `scripts/check-readme.ts` (pending a quick check at implementation time that it doesn't assert anything about the old StatStrip content), dark/light `<picture>` delivery mechanism.
@@ -127,15 +138,19 @@ Confirmed as the right call in the original direction — not converted into a c
 - All text-bearing token pairs re-verified via the existing `contrast.test.ts` generic sweep (§2) — no manual eyeballing.
 - `accentSoft` panels always pair with `neutralHigh` or `accent` text (never bare `neutralMid` on `accentSoft` without checking, since `accentSoft` is a light/soft tint and contrast against it isn't automatically implied by its contrast against `bg`) — implementation must add explicit contrast assertions for `neutralHigh`-on-`accentSoft` and `accent`-on-`accentSoft` in both modes, since the current generic sweep only checks tokens against `bg`, not against `accentSoft`.
 
-## 7. Open questions (non-blocking — do not gate implementation start)
+## 7. Open questions
 
-- **OQ-1:** `HERO_DATA.kicker` (`"SYSTEMS ARCHITECT"`) and `missionLine` (currently AI-infra/dev-tooling framed) were not part of the user's requested copy changes — only `DOMAINS`/`FOCUS`/`BASED` and the eyebrow were specified. Given the new positioning foregrounds physical infrastructure + buildings alongside software, the kicker/mission may now read slightly inconsistently with the right-hand panel. Not touching this without explicit confirmation — flagging for the user rather than inventing new professional-identity copy.
+Both prior open questions are now resolved:
+
+- **OQ-1 (resolved):** update the kicker/mission copy alongside the visual system rather than leaving legacy positioning in place — see §4.1.5.
+- **OQ-3 (resolved):** remove the dormant GitHub-metrics code cleanly (§5) rather than keep it as speculative dead code; git history is sufficient if it's ever needed again.
+
+One item remains genuinely open, and is not blocking:
+
 - **OQ-2:** Exact pixel values in §4.1/§4.2 are a verified-on-paper starting point (typographic budget was hand-computed to fit within the stated canvas sizes) but will be finalized against the repo's existing automated overflow-guard tests (the `hero.test.ts` bounding-box sweep pattern) during implementation, the same way the current Hero's proportions were tuned per that file's own inline comments.
-- **OQ-3:** `github-data.ts` (live follower/repo/star fetch) has no remaining caller once StatStrip no longer renders those numbers. Leaving the fetch module in place but unused is a reasonable default (cheap to keep, easy to reuse later, avoids a churny deletion mid-redesign) — but worth a explicit user call before implementation: keep it dormant, or remove it now since nothing renders its output?
 
 ## 8. Explicitly out of scope (this pass)
 
 - Rewriting `README.md` markdown content/section order.
 - Changing which GitHub Action/generator architecture is used.
-- Removing `github-data.ts` (see OQ-3).
 - Any change to Selected Projects, Engineering Utilities, or other markdown-only sections.
