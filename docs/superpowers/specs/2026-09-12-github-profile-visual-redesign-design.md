@@ -1,7 +1,7 @@
 # GitHub Profile Visual Redesign — sabahattink/sabahattink
 
 **Date:** 2026-09-12
-**Status:** Approved. Direction (v14 palette + dashboard-card architecture + dual light/dark), content corrections, spec review, and both open questions (OQ-1 kicker/mission copy, OQ-3 dormant-code removal) are all resolved. Proceeding to implementation planning.
+**Status:** Implemented — see commits `b3fa439` through `35413ff` on `main` (font swap, token/palette rewrite, Hero/StatStrip/SectionDivider rebuilds, generate.ts rewiring, dormant-code removal, an arrow-glyph copy fix found during visual QA, and the regenerated assets). All tasks passed spec-compliance and code-quality review; `pnpm test`, `pnpm run typecheck`, and `pnpm run check:readme` are green.
 **Repo:** `H:\10_ENGINEERING\sabahattink` (github.com/sabahattink/sabahattink)
 **Supersedes:** §5 (Visual System) of `docs/superpowers/specs/2026-07-09-github-profile-design.md`. §§1–4 and §§6–8 of that spec (content structure, selected projects, production architecture, accessibility, out-of-scope) remain in force and are not touched by this document — this is a visual-system revision only.
 
