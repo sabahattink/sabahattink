@@ -1,29 +1,55 @@
 import { h, type SatoriNode } from "../satori-h.js";
 import { colors, spacing, typeScale, type Mode, type ColorTokens } from "../tokens.js";
-import type { GithubStats } from "../github-data.js";
 
-function Stat(c: ColorTokens, label: string, value: number): SatoriNode {
+export interface StatTileData {
+  tag: string;
+  value: string;
+  caption: string;
+}
+
+function Tile(c: ColorTokens, tileWidth: number, data: StatTileData): SatoriNode {
   return h(
     "div",
-    { style: { display: "flex", alignItems: "baseline", gap: "8px" } },
+    {
+      style: {
+        display: "flex",
+        flexDirection: "column",
+        width: `${tileWidth}px`,
+        backgroundColor: c.surface,
+        border: `1px solid ${c.hairline}`,
+        borderRadius: `${spacing.tileRadius}px`,
+        padding: `${spacing.tilePadding}px`,
+      },
+    },
+    h("span", { style: { ...typeScale.tileTag, fontFamily: "Space Mono", color: c.neutralMid } }, data.tag),
     h(
       "span",
-      { style: { ...typeScale.statValue, fontFamily: "Inter", color: c.neutralHigh } },
-      String(value)
+      { style: { ...typeScale.tileValue, fontFamily: "Space Grotesk", color: c.neutralHigh, marginTop: "8px" } },
+      data.value
     ),
     h(
       "span",
-      { style: { ...typeScale.meta, fontFamily: "JetBrains Mono", color: c.neutralMid } },
-      label
+      {
+        style: {
+          ...typeScale.tileCaption,
+          fontFamily: "Space Grotesk",
+          color: c.neutralMid,
+          marginTop: "6px",
+          lineHeight: 1.4,
+        },
+      },
+      data.caption
     )
   );
 }
 
-// Mirrors Hero's hairline-rule language (top/bottom hairline framing a content row) —
-// StatStrip must share Hero's visual framing, not just sit as a bare row underneath it.
-export function StatStrip(mode: Mode, stats: GithubStats): SatoriNode {
+// tileWidth is computed from tiles.length rather than hardcoded, so this
+// component isn't silently wrong if a future edit adds/removes a tile without
+// updating a hand-picked width constant.
+export function StatStrip(mode: Mode, tiles: StatTileData[]): SatoriNode {
   const c = colors[mode];
-  const { heroWidth: width, marginX, statStripHeight: height } = spacing;
+  const { heroWidth: width, statStripHeight: height, marginX, tileGap } = spacing;
+  const tileWidth = (width - marginX * 2 - tileGap * (tiles.length - 1)) / tiles.length;
 
   return h(
     "div",
@@ -32,26 +58,13 @@ export function StatStrip(mode: Mode, stats: GithubStats): SatoriNode {
         width: `${width}px`,
         height: `${height}px`,
         display: "flex",
-        flexDirection: "column",
+        alignItems: "center",
         justifyContent: "center",
+        gap: `${tileGap}px`,
         backgroundColor: c.bg,
+        padding: `0 ${marginX}px`,
       },
     },
-    h("div", { style: { display: "flex", margin: `0 ${marginX}px`, height: "1px", backgroundColor: c.hairline } }),
-    h(
-      "div",
-      {
-        style: {
-          display: "flex",
-          alignItems: "center",
-          gap: "40px",
-          padding: `12px ${marginX}px`,
-        },
-      },
-      Stat(c, "FOLLOWERS", stats.followers),
-      Stat(c, "PUBLIC REPOS", stats.publicRepos),
-      Stat(c, "STARS", stats.totalStars)
-    ),
-    h("div", { style: { display: "flex", margin: `0 ${marginX}px`, height: "1px", backgroundColor: c.hairline } })
+    ...tiles.map((t) => Tile(c, tileWidth, t))
   );
 }
