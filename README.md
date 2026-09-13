@@ -1,11 +1,11 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
-  <img src="assets/hero-light.svg" alt="Sabahattin Kalkan — Systems Architect">
+  <img src="assets/hero-light.svg" alt="Sabahattin Kalkan — Systems · Software · Buildings engineering profile">
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stat-strip-dark.svg">
-  <img src="assets/stat-strip-light.svg" alt="GitHub stats: followers, public repos, stars">
+  <img src="assets/stat-strip-light.svg" alt="Core disciplines: systems, software, buildings — field to production — based in Baku, Azerbaijan">
 </picture>
 
 ## Mission
