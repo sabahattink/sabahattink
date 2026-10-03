@@ -1,25 +1,39 @@
 # Sabahattin Kalkan
 
-## Systems Engineer & Software Architect
+**Building developer infrastructure for AI-native engineering.**
 
-I build reliable systems at the intersection of software engineering, building automation, and physical infrastructure. My work spans engineering tools, deterministic developer workflows, and software that has to remain trustworthy in real operating environments.
+I build tools that make coding agents more useful, codebases easier to understand, and software delivery more deterministic.
 
-## Selected Work
+## Start Here
 
-- **[antigravity-fullstack-hq](https://github.com/sabahattink/antigravity-fullstack-hq)** — An opinionated AI engineering workflow and configuration for Claude Code and Google Antigravity, with community traction.
-- **[Recall](https://github.com/sabahattink/Recall)** — Deterministic repository context for AI coding agents.
-- **[codediag](https://github.com/sabahattink/codediag)** — Deterministic engineering health and risk analysis for Node.js repositories.
+- 🧠 **[Recall](https://github.com/sabahattink/Recall)** — Persistent, evidence-backed repository context for Claude Code, Codex, Cursor, Gemini CLI, and other coding agents.
+- 🩺 **[codediag](https://github.com/sabahattink/codediag)** — One command to surface architecture, security, performance, reliability, and maintainability risks in JavaScript/TypeScript codebases.
+- ⚙️ **[antigravity-fullstack-hq](https://github.com/sabahattink/antigravity-fullstack-hq)** — A shared engineering system for Claude Code, OpenAI Codex, and Google Antigravity with portable rules, agents, skills, and workflows.
 
-## Engineering
+## What I'm Building
 
-- Building automation
-- BACnet / KNX / BMS
-- Fire & life-safety systems
-- Software architecture
-- Infrastructure & automation
+My current focus is the tooling layer around AI-assisted software engineering:
 
-## Engineering Notes
+- repository intelligence and persistent agent context;
+- deterministic diagnostics before AI interpretation;
+- portable workflows across coding-agent runtimes;
+- developer tooling that works locally, predictably, and without unnecessary infrastructure.
 
-- **[engineering-handbook](https://github.com/sabahattink/engineering-handbook)** — A public operating reference for repository standards, architecture, workflow, review, security, release, and maintenance.
+## Engineering DNA
+
+My background also spans building automation and physical infrastructure: **BACnet, KNX, BMS, fire & life-safety systems, servers, networks, and field commissioning**.
+
+That experience shapes how I build software: observable, testable, failure-aware, and designed for real operating environments.
+
+## More Projects
+
+- 🔥 **[repo-roast-ai](https://github.com/sabahattink/repo-roast-ai)** — AI-assisted repository critique and developer feedback.
+- 📚 **[engineering-handbook](https://github.com/sabahattink/engineering-handbook)** — Public engineering standards for architecture, workflow, review, security, release, and maintenance.
+- 🧰 **[reasonkit](https://github.com/sabahattink/reasonkit)** — Reusable building blocks for structured reasoning workflows.
+- 📖 **[awesome-coding-ai](https://github.com/sabahattink/awesome-coding-ai)** — Curated resources around AI-native software development.
+
+## Principles
+
+**Useful beats impressive. Deterministic beats magical. Shipping beats collecting unfinished ideas.**
 
 [Website](https://sabahattinkalkan.com) · [LinkedIn](https://www.linkedin.com/in/sabahattin-kalkan-b7a110b8/)
