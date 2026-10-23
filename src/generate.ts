@@ -1,103 +1,72 @@
-import satori from "satori";
-import { writeFile, mkdir } from "node:fs/promises";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
-import { loadFonts } from "./fonts.js";
-import { Hero } from "./components/hero.js";
-import { SectionDivider } from "./components/section-divider.js";
-import { StatStrip, type StatTileData } from "./components/stat-strip.js";
-import { spacing } from "./tokens.js";
+import { parseArgs } from "node:util";
+import { OWNER, PRODUCTS } from "./config.js";
+import { describeChange } from "./describe.js";
+import { fitProblems, renderSheet } from "./render/sheet.js";
+import { loadFonts } from "./render/fonts.js";
+import { injectBlock, projectTable } from "./render/readme.js";
+import { THEMES } from "./render/theme.js";
+import { advance, latestRevision } from "./revisions.js";
+import { fetchScan } from "./scan.js";
+import { type Scan, ScanSchema, StateSchema } from "./schema.js";
 
-const DEFAULT_OUT_DIR = path.join(process.cwd(), "assets");
+const ROOT = path.resolve(import.meta.dirname, "..");
+const STATE_PATH = path.join(ROOT, "data", "state.json");
+const README_PATH = path.join(ROOT, "README.md");
 
-interface GenerateOptions {
-  outDir?: string;
+function writeIfChanged(file: string, content: string): boolean {
+  if (existsSync(file) && readFileSync(file, "utf8") === content) return false;
+  mkdirSync(path.dirname(file), { recursive: true });
+  writeFileSync(file, content);
+  return true;
 }
 
-const HERO_DATA = {
-  name: "Sabahattin Kalkan",
-  kicker: "SYSTEMS · SOFTWARE · BUILDINGS",
-  missionLine: "Engineering software and physical systems from architecture to deployment.",
-  focus: "Systems that connect software with physical infrastructure",
-  domains: "Building Automation · Software Architecture · Engineering Tools",
-  based: "Baku, Azerbaijan",
-};
+async function main(): Promise<void> {
+  const { values } = parseArgs({ options: { offline: { type: "string" } } });
 
-const STAT_DATA: StatTileData[] = [
-  { tag: "03", value: "CORE DISCIPLINES", caption: "Systems · Software · Buildings" },
-  { tag: "FIELD", value: "-> PRODUCTION", caption: "From physical infrastructure to deployed software" },
-  { tag: "BAKU", value: "AZ", caption: "Engineering from Azerbaijan" },
-];
+  const problems = fitProblems(PRODUCTS);
+  if (problems.length > 0) {
+    const list = problems.map((p) => `  ${p.what}: ${p.width.toFixed(1)}px > ${p.max}px`).join("\n");
+    throw new Error(`Labels overflow their symbols:\n${list}`);
+  }
 
-export async function generate(options: GenerateOptions = {}): Promise<void> {
-  const outDir = options.outDir ?? DEFAULT_OUT_DIR;
-  await mkdir(outDir, { recursive: true });
+  let scan: Scan;
+  if (values.offline !== undefined) {
+    scan = ScanSchema.parse(JSON.parse(readFileSync(path.resolve(ROOT, values.offline), "utf8")));
+  } else {
+    const token = process.env.GITHUB_TOKEN;
+    if (token === undefined || token === "") throw new Error("GITHUB_TOKEN is required for a live scan (or pass --offline <scan.json>)");
+    scan = await fetchScan({ token, owner: OWNER, repos: PRODUCTS.map((p) => p.repo), now: new Date() });
+  }
 
-  const fonts = await loadFonts();
+  // Offline renders are previews: they start a fresh sheet and never touch data/state.json.
+  const prev =
+    values.offline === undefined && existsSync(STATE_PATH)
+      ? StateSchema.parse(JSON.parse(readFileSync(STATE_PATH, "utf8")))
+      : null;
+  const state = advance(prev, scan);
 
-  const jobs: Array<{ file: string; svg: () => Promise<string> }> = [
-    {
-      file: "hero-dark.svg",
-      svg: () =>
-        satori(Hero("dark", HERO_DATA) as never, { width: spacing.heroWidth, height: spacing.heroHeight, fonts }),
-    },
-    {
-      file: "hero-light.svg",
-      svg: () =>
-        satori(Hero("light", HERO_DATA) as never, { width: spacing.heroWidth, height: spacing.heroHeight, fonts }),
-    },
-    {
-      file: "stat-strip-dark.svg",
-      svg: () =>
-        satori(StatStrip("dark", STAT_DATA) as never, {
-          width: spacing.heroWidth,
-          height: spacing.statStripHeight,
-          fonts,
-        }),
-    },
-    {
-      file: "stat-strip-light.svg",
-      svg: () =>
-        satori(StatStrip("light", STAT_DATA) as never, {
-          width: spacing.heroWidth,
-          height: spacing.statStripHeight,
-          fonts,
-        }),
-    },
-    {
-      file: "divider-dark.svg",
-      svg: () =>
-        satori(SectionDivider("dark", "TECH STACK") as never, {
-          width: spacing.heroWidth,
-          height: spacing.dividerHeight,
-          fonts,
-        }),
-    },
-    {
-      file: "divider-light.svg",
-      svg: () =>
-        satori(SectionDivider("light", "TECH STACK") as never, {
-          width: spacing.heroWidth,
-          height: spacing.dividerHeight,
-          fonts,
-        }),
-    },
-  ];
+  const fonts = loadFonts();
+  const written: string[] = [];
+  for (const theme of THEMES) {
+    const file = path.join(ROOT, "assets", `riser-${theme.name}.svg`);
+    if (writeIfChanged(file, renderSheet({ state, products: PRODUCTS, theme, fonts }))) written.push(path.relative(ROOT, file));
+  }
+  const readme = injectBlock(readFileSync(README_PATH, "utf8"), projectTable(state, PRODUCTS));
+  if (writeIfChanged(README_PATH, readme)) written.push("README.md");
+  if (values.offline === undefined && state !== prev) {
+    if (writeIfChanged(STATE_PATH, `${JSON.stringify(state, null, 2)}\n`)) written.push("data/state.json");
+  }
 
-  // Render every SVG into memory first, and only write to disk once every
-  // render has succeeded — see generate.test.ts's second test for why this
-  // all-or-nothing ordering matters.
-  const rendered = await Promise.all(jobs.map(async (job) => ({ file: job.file, svg: await job.svg() })));
-
-  await Promise.all(rendered.map(({ file, svg }) => writeFile(path.join(outDir, file), svg)));
+  const latest = latestRevision(state);
+  console.log(`Revision ${latest.rev} (${latest.date}): ${latest.changes.map(describeChange).join("; ")}`);
+  if (values.offline !== undefined) console.log("Offline preview: data/state.json untouched.");
+  else console.log(state === prev ? "No meaningful change since the last scan." : "New revision recorded.");
+  console.log(written.length > 0 ? `Wrote: ${written.join(", ")}` : "Nothing to write.");
 }
 
-// Allow running directly: `tsx src/generate.ts`
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  generate()
-    .then(() => console.log("Generated all assets."))
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    });
-}
+main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

@@ -1,0 +1,72 @@
+name: Profile
+
+# One writer for the whole profile: the riser scan, the building, and operator commands.
+# Commands arrive as issues titled "bms: ...". The issue list itself is the queue, so a
+# run that gets superseded loses nothing: the next run picks up every open command.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch: {}
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: profile-writer
+  cancel-in-progress: false
+
+jobs:
+  update:
+    # startsWith is evaluated by Actions, never by a shell. Issue text is only ever read
+    # through the API in TypeScript and matched against a fixed grammar.
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'bms:')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPLIES_PATH: ${{ runner.temp }}/bms-replies.json
+    steps:
+      - uses: actions/checkout@v5
+
+      # Version comes from "packageManager" in package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck and test
+        if: github.event_name != 'issues'
+        run: pnpm typecheck && pnpm test
+
+      - name: Scan projects and redraw the riser
+        if: github.event_name != 'issues'
+        run: pnpm generate
+
+      - name: Operate the building
+        run: pnpm operate
+
+      - name: Commit
+        run: |
+          git add assets data README.md
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "profile: ${{ github.event_name == 'issues' && 'operator command' || 'scan' }}"
+          git push
+
+      # Only after the push: an operator is never told "accepted" for a write that was not saved.
+      - name: Reply to operators
+        run: pnpm reply

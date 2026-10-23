@@ -1,24 +1,26 @@
 {
-  "name": "profile-redesign",
-  "version": "1.0.0",
-  "description": "",
+  "name": "sabahattink-profile",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Profile README: a live system riser drawing and a building anyone can operate through GitHub issues.",
   "type": "module",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "generate": "tsx src/generate.ts",
+    "generate:offline": "tsx src/generate.ts --offline fixtures/scan.json",
+    "operate": "tsx src/operate.ts",
+    "operate:offline": "tsx src/operate.ts --offline fixtures/building.json",
+    "reply": "tsx src/reply.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "check:readme": "tsx scripts/check-readme.ts"
+    "test": "vitest run"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@fontsource/space-grotesk": "^5.3.0",
-    "@fontsource/space-mono": "^5.3.0",
-    "satori": "^0.26.0"
+    "@fontsource/b612": "^5.3.0",
+    "@fontsource/b612-mono": "^5.3.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^26.1.1",
+    "@types/node": "^22.19.0",
     "tsx": "^4.23.0",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"

@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2023",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "esModuleInterop": true,
     "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "types": ["node"],
-    "outDir": "dist",
-    "rootDir": "."
+    "noEmit": true
   },
-  "include": ["src", "scripts"]
+  "include": ["src"]
 }
