@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "at": "2026-11-14T09:21:50Z",
+  "outdoor": {
+    "value": 17,
+    "at": "2026-11-14T09:21:50Z",
+    "live": true
+  },
+  "zones": {
+    "office": {
+      "setpoint": 22,
+      "lights": true,
+      "t0": "2026-11-14T09:21:50Z",
+      "temp0": 22.279,
+      "alarm": "normal"
+    },
+    "meeting": {
+      "setpoint": 22,
+      "lights": false,
+      "t0": "2026-11-14T09:21:50Z",
+      "temp0": 21.846,
+      "alarm": "normal"
+    },
+    "server": {
+      "setpoint": 21,
+      "lights": false,
+      "t0": "2026-11-14T09:21:50Z",
+      "temp0": 21.898,
+      "alarm": "normal"
+    },
+    "lobby": {
+      "setpoint": 21,
+      "lights": true,
+      "t0": "2026-11-14T09:21:50Z",
+      "temp0": 20.516,
+      "alarm": "normal"
+    }
+  },
+  "log": [],
+  "handled": [],
+  "lastWrite": {}
+}

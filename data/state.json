@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "scan": {
+    "scannedAt": "2026-11-14T09:21:48Z",
+    "repos": [
+      {
+        "repo": "Recall",
+        "url": "https://github.com/sabahattink/Recall",
+        "stars": 2,
+        "release": "recall-context@0.2.1",
+        "pushedAt": "2026-10-31T04:03:08Z",
+        "checks": "failing",
+        "archived": false
+      },
+      {
+        "repo": "codediag",
+        "url": "https://github.com/sabahattink/codediag",
+        "stars": 2,
+        "release": "v0.13.0",
+        "pushedAt": "2026-11-09T02:10:26Z",
+        "checks": "passing",
+        "archived": false
+      },
+      {
+        "repo": "antigravity-fullstack-hq",
+        "url": "https://github.com/sabahattink/antigravity-fullstack-hq",
+        "stars": 32,
+        "release": "v1.4.0",
+        "pushedAt": "2026-10-06T07:46:50Z",
+        "checks": "passing",
+        "archived": false
+      },
+      {
+        "repo": "reasonkit",
+        "url": "https://github.com/sabahattink/reasonkit",
+        "stars": 0,
+        "release": "v0.2.0",
+        "pushedAt": "2026-09-23T04:57:37Z",
+        "checks": "passing",
+        "archived": false
+      },
+      {
+        "repo": "sealed",
+        "url": "https://github.com/sabahattink/sealed",
+        "stars": 0,
+        "release": null,
+        "pushedAt": "2026-08-29T10:12:36Z",
+        "checks": "none",
+        "archived": false
+      }
+    ]
+  },
+  "revisions": [
+    {
+      "rev": 1,
+      "date": "2026-11-14",
+      "changes": [
+        {
+          "kind": "issued"
+        }
+      ]
+    }
+  ]
+}
