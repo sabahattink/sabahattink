@@ -30,7 +30,6 @@ jobs:
     timeout-minutes: 10
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REPLIES_PATH: ${{ runner.temp }}/bms-replies.json
     steps:
       - uses: actions/checkout@v5
 
@@ -53,6 +52,8 @@ jobs:
         run: pnpm generate
 
       - name: Operate the building
+        env:
+          REPLIES_PATH: ${{ runner.temp }}/bms-replies.json
         run: pnpm operate
 
       - name: Commit
@@ -69,4 +70,6 @@ jobs:
 
       # Only after the push: an operator is never told "accepted" for a write that was not saved.
       - name: Reply to operators
+        env:
+          REPLIES_PATH: ${{ runner.temp }}/bms-replies.json
         run: pnpm reply
