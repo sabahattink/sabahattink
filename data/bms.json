@@ -1,38 +1,38 @@
 {
   "version": 1,
-  "at": "2026-11-15T06:39:34Z",
+  "at": "2026-11-15T18:53:56Z",
   "outdoor": {
-    "value": 17.4,
-    "at": "2026-11-15T06:39:34Z",
+    "value": 10.5,
+    "at": "2026-11-15T18:53:56Z",
     "live": true
   },
   "zones": {
     "office": {
       "setpoint": 22,
       "lights": true,
-      "t0": "2026-11-15T06:39:34Z",
-      "temp0": 22.133,
+      "t0": "2026-11-15T18:53:56Z",
+      "temp0": 22.307,
       "alarm": "normal"
     },
     "meeting": {
       "setpoint": 22,
       "lights": false,
-      "t0": "2026-11-15T06:39:34Z",
-      "temp0": 21.666,
+      "t0": "2026-11-15T18:53:56Z",
+      "temp0": 21.88,
       "alarm": "normal"
     },
     "server": {
       "setpoint": 21,
       "lights": false,
-      "t0": "2026-11-15T06:39:34Z",
-      "temp0": 21.855,
+      "t0": "2026-11-15T18:53:56Z",
+      "temp0": 21.906,
       "alarm": "normal"
     },
     "lobby": {
       "setpoint": 21,
       "lights": true,
-      "t0": "2026-11-15T06:39:34Z",
-      "temp0": 20.11,
+      "t0": "2026-11-15T18:53:56Z",
+      "temp0": 20.594,
       "alarm": "normal"
     }
   },
