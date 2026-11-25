@@ -1,7 +1,7 @@
 {
   "version": 1,
   "scan": {
-    "scannedAt": "2026-11-14T09:21:48Z",
+    "scannedAt": "2026-11-25T21:44:45Z",
     "repos": [
       {
         "repo": "Recall",
@@ -17,14 +17,14 @@
         "url": "https://github.com/sabahattink/codediag",
         "stars": 2,
         "release": "v0.13.0",
-        "pushedAt": "2026-11-09T02:10:26Z",
+        "pushedAt": "2026-11-23T02:10:23Z",
         "checks": "passing",
         "archived": false
       },
       {
         "repo": "antigravity-fullstack-hq",
         "url": "https://github.com/sabahattink/antigravity-fullstack-hq",
-        "stars": 32,
+        "stars": 33,
         "release": "v1.4.0",
         "pushedAt": "2026-10-06T07:46:50Z",
         "checks": "passing",
@@ -57,6 +57,18 @@
       "changes": [
         {
           "kind": "issued"
+        }
+      ]
+    },
+    {
+      "rev": 2,
+      "date": "2026-11-25",
+      "changes": [
+        {
+          "kind": "stars",
+          "repo": "antigravity-fullstack-hq",
+          "from": 32,
+          "to": 33
         }
       ]
     }
